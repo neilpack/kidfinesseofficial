@@ -5,13 +5,10 @@
 
 <style>
   .header-wrapper {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 999;
     display: flex;
     align-items: center;
+    justify-content: space-between;
+    padding: 12px 0;
   }
 
   .logo-wrapper {
@@ -79,7 +76,7 @@
     </div>
 
     <div class="right-nav">
-      {% render 'social-icons' %}
+      <a class="header-btn" href="/cart">Cart ({{ cart.item_count }})</a>
     </div>
 
   </div>
