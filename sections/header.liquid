@@ -1,0 +1,110 @@
+{% assign header_text_color = '#000000' %}
+{% if template.name == 'index' %}
+  {% assign header_text_color = '#ffffff' %}
+{% endif %}
+
+<style>
+  .header-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 0;
+  }
+
+  .logo-wrapper {
+    text-align: center;
+    flex: 1;
+  }
+
+  .logo-wrapper img {
+    width: {{ section.settings.logo_size }}px;
+    max-width: 100%;
+    height: auto;
+  }
+
+  .left-nav,
+  .right-nav {
+    flex: 0 1 auto;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .header-btn {
+    color: {{ header_text_color }} !important;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 16px;
+    padding: 12px 14px;
+    transition: all 0.25s ease;
+    text-transform: uppercase;
+  }
+
+  .header-btn:hover {
+    opacity: 0.7;
+  }
+
+  @media screen and (max-width: 749px) {
+    .header-btn {
+      font-size: 14px;
+      padding: 8px 10px;
+    }
+  }
+</style>
+
+<div class="page-width">
+  <div class="header-wrapper">
+
+    <div class="left-nav">
+      {% if shop.customer_accounts_enabled %}
+        <a class="header-btn" href="/account">Account</a>
+      {% endif %}
+    </div>
+
+    <div class="logo-wrapper">
+      <a href="{{ routes.root_url }}" class="header__heading-link">
+        {% if section.settings.logo != blank %}
+          <img
+            src="{{ section.settings.logo | image_url: width: 500 }}"
+            alt="{{ shop.name }}"
+            loading="eager"
+          >
+        {% else %}
+          <span class="header-logo-text" style="color: {{ header_text_color }};">{{ shop.name }}</span>
+        {% endif %}
+      </a>
+    </div>
+
+    <div class="right-nav">
+      <a class="header-btn" href="/cart">Cart ({{ cart.item_count }})</a>
+    </div>
+
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Custom Header",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo"
+    },
+    {
+      "type": "range",
+      "id": "logo_size",
+      "label": "Logo width (px)",
+      "min": 40,
+      "max": 300,
+      "step": 5,
+      "default": 120
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Header"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,388 @@
+{% if section.settings.enable_enter_page %}
+<style>
+  .bgimg, #shopify-section-header, #MainContent, #shopify-section-footer{
+    display: none !important;
+  }
+  #shopify-section-enterpage{
+    display: flex;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+    {% if section.settings.alignment == 'center' %}
+    justify-content: center;
+    {% elsif section.settings.alignment == 'left' %}
+    padding-left: 20%;
+    {% endif %}
+  }
+  body{
+    overflow: hidden;
+  }
+  @media screen and (max-width: 500px){
+      #shopify-section-enterpage{
+    {% if section.settings.alignment == 'left' %}
+    padding-left: 15%;
+    {% endif %}
+  }
+  }
+  {% if section.settings.enter-background == 'color' %}
+  body {
+    background: {{ section.settings.enter-background-color }};
+  }
+  .enterbg{
+    display: none;
+  }
+  
+  {% elsif section.settings.enter-background == 'image' %}
+  .enterbg{
+    display: block;
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    z-index: -2;
+    background: url('{{ section.settings.enter-background-image | img_url: 'master' }}');
+    background-size: cover;
+    background-position: center center;
+  }
+  .enterbg:after {
+      content: "";
+      position: fixed;
+      left: 0;
+      top: 0;
+      height: 100vh;
+      width: 100%;
+      background: rgb(0 0 0 / {{ section.settings.bg-overlay }}%);
+      z-index: -2;
+  }
+  {% elsif section.settings.enter-background == 'gradient' %}
+  .enterbg{
+    display: none;
+  }
+  body{
+    background: {{ section.settings.enter-background-gradient }};
+  }
+  {% endif %}
+  
+
+  
+  
+  #MainContent {
+    min-height: 0vh;
+  }
+  .enter-menu-item{
+    width: fit-content;
+  }
+  .enter-menu{
+    display: flex;
+    flex-direction: column;
+  }
+  {% if section.settings.alignment == 'all-center' %}
+  .enter-menu{
+    align-items: center;
+  }
+  #shopify-section-enterpage{
+    justify-content: center;
+  }
+  .enter-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  {% endif %}
+  .enter-logo{
+    margin-bottom: {{ section.settings.logo-margin }}px;
+  }
+  .enter-menu-link{
+    padding: {{ section.settings.menu-padding }}px 0px;
+    display: block;
+    {% if section.settings.text-capitalize == 'capitalize' %}
+    text-transform: capitalize;
+    {% elsif section.settings.text-capitalize == 'lowercase' %}
+    text-transform: lowercase;
+    {% elsif section.settings.text-capitalize == 'uppercase' %}
+    text-transform: uppercase;
+    {% endif %}
+    font-size: {{ section.settings.menu-size-pc }}px;
+    {% if section.settings.menu-font == 'heading' %}
+    font-family: var(--font-heading-family) !important;
+    font-style: var(--font-heading-style) !important;
+    font-weight: var(--font-heading-weight) !important;
+    {% elsif section.settings.menu-font == 'body' %}
+    font-family: var(--font-body-family) !important;
+    font-style: var(--font-body-style) !important;
+    font-weight: var(--font-body-weight) !important;
+    {% endif %}
+    color: {{ section.settings.menu-color }};
+  }
+  
+.enter-menu{
+  width: fit-content;
+}
+
+
+  .enter-logo img {
+    width: {{ section.settings.logo-size }}px;
+    max-width: 100%;
+  }
+
+@media screen and (min-width: 501px){
+  .enter-menu .enter-menu-item .enter-menu-link {
+  opacity: 1;
+  transition: opacity 0.3s;
+}
+
+
+.enter-menu:hover .enter-menu-item .enter-menu-link {
+  opacity: 0.5;
+}
+
+.enter-menu .enter-menu-item:hover .enter-menu-link {
+  opacity: 1;
+}
+}
+@media screen and (max-width: 500px) {
+  .enter-logo img {
+    width: {{ section.settings.logo-size-mobile }}px;
+  }
+    .enter-menu-link{
+    font-size: {{ section.settings.menu-size-mobile }}px;
+  }
+}
+</style>
+<div class="enterbg"></div>
+<div class="enter-container">
+  <div class="enter-logo">
+    {%- if section.settings.logo != blank -%}
+      <img src="{{ section.settings.logo | img_url: 'master' }}" loading="eager">
+    {%- endif -%}
+  </div>
+
+<div class="enter-menu">
+  {% if section.settings.menu %}
+    {% assign show_numbering = section.settings.show-numbering %}
+    {% assign menu_links = linklists[section.settings.menu].links %}
+    {% for link in menu_links %}
+      <div class="enter-menu-item">
+        {% if show_numbering %}
+          <a href="{{ link.url }}" class="enter-menu-link">{{ forloop.index0 | prepend: '0' }} - {{ link.title }}</a>
+        {% else %}
+          <a href="{{ link.url }}" class="enter-menu-link">{{ link.title }}</a>
+        {% endif %}
+      </div>
+    {% endfor %}
+  {% endif %}
+</div>
+
+</div>
+{% endif %}
+{% schema %}
+  {
+    "name": "ENTER PAGE",
+    "settings": [
+    {
+      "type": "checkbox",
+      "id": "enable_enter_page",
+      "label": "Enable enter page",
+      "info": "Enter page will replace default home page layout"
+    },
+    {
+      "type": "header",
+      "content": "Logo settings"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo"
+    },
+    {
+      "type": "range",
+      "id": "logo-size",
+      "min": 50,
+      "max": 400,
+      "step": 5,
+      "default": 150,
+      "unit": "px",
+      "label": "Logo size"
+    },
+    {
+      "type": "range",
+      "id": "logo-size-mobile",
+      "min": 50,
+      "max": 300,
+      "step": 5,
+      "default": 100,
+      "unit": "px",
+      "label": "Mobile logo size"
+    },
+    {
+      "type": "range",
+      "id": "logo-margin",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 30,
+      "unit": "px",
+      "label": "Distance from the menu"
+    },
+    {
+      "type": "header",
+      "content": "Menu settings"
+    },
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Select menu"
+    },
+    {
+      "type": "select",
+      "id": "text-capitalize",
+      "label": "Text capitalize",
+      "options": [
+        {
+          "value": "capitalize",
+          "label": "Capitalize"
+        },
+        {
+          "value": "lowercase",
+          "label": "Lowercase"
+        },
+        {
+          "value": "uppercase",
+          "label": "Uppercase"
+        }
+      ],
+      "default": "capitalize"
+    },
+    {
+      "type": "range",
+      "id": "menu-size-pc",
+      "min": 10,
+      "max": 35,
+      "step": 1,
+      "default": 14,
+      "unit": "px",
+      "label": "Menu size (PC view)"
+    },
+    {
+      "type": "range",
+      "id": "menu-size-mobile",
+      "min": 10,
+      "max": 25,
+      "step": 1,
+      "default": 14,
+      "unit": "px",
+      "label": "Menu size (Mobile view)"
+    },
+    {
+      "type": "range",
+      "id": "menu-padding",
+      "min": 7,
+      "max": 20,
+      "step": 1,
+      "default": 7,
+      "unit": "px",
+      "label": "Distance between menu links"
+    },
+    {
+      "type": "color",
+      "id": "menu-color",
+      "label": "Menu color"
+    },
+    {
+      "type": "checkbox",
+      "id": "show-numbering",
+      "label": "Show numbering",
+      "default": false
+    },
+
+    {
+      "type": "select",
+      "id": "menu-font",
+      "label": "Menu font type",
+      "options": [
+        {
+          "value": "heading",
+          "label": "Heading"
+        },
+        {
+          "value": "body",
+          "label": "Regular"
+        }
+      ],
+      "default": "body"
+    },
+    {
+      "type": "select",
+      "id": "alignment",
+      "label": "Alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "all-center",
+          "label": "All center"
+        }
+      ],
+      "default": "left"
+    },
+    {
+        "type": "header",
+        "content": "Enter Background"
+      },
+      {
+        "type": "select",
+        "id": "enter-background",
+        "label": "Background type",
+        "options": [
+          {
+            "value": "color",
+            "label": "Color"
+          },
+          {
+            "value": "gradient",
+            "label": "Gradient"
+          },
+          {
+            "value": "image",
+            "label": "Image/Gif"
+          }
+        ]
+      },
+      {
+        "type": "color",
+        "id": "enter-background-color",
+        "label": "Color",
+        "default": "#FFFFFF"
+      },
+      {
+        "type": "color_background",
+        "id": "enter-background-gradient",
+        "label": "Gradient"
+      },
+      {
+        "type": "image_picker",
+        "id": "enter-background-image",
+        "label": "Image/Gif"
+      },
+      {
+        "type": "range",
+        "id": "bg-overlay",
+        "label": "Adjust darkness",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "default": 25,
+        "unit": "%",
+        "info": "For gif\/img only. Adjust darkness in case of low-quality gif or to increase the contrast of content on the site"
+      }
+    ]
+  }
+{% endschema %}

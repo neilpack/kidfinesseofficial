@@ -1,0 +1,200 @@
+<style>
+  .email-banner__name{
+    text-align: center;
+    {% if section.settings.font-size == 's' %}
+    font-size: 16px;
+    {% elsif section.settings.font-size == 'm' %}
+    font-size: 24px;
+    {% elsif section.settings.font-size == 'l' %}
+    font-size: 32px;
+    {% elsif section.settings.font-size == 'xl' %}
+    font-size: 44px;
+    {% elsif section.settings.font-size == '2xl' %}
+    font-size: 50px;
+    {% endif %}
+    margin-bottom: 24px;
+  }
+  .email-banner__desc{
+    text-align: center;
+    max-width: 35rem;
+    margin: 0 auto;
+    font-size: 15px;
+  }
+  .email-banner__input {
+    display: block;
+    width: 300px;
+    padding: 11px 18px;
+    font-size: 14px;
+    border: 1px solid {{ settings.input-color }};
+    border-style: solid;
+    border-radius: 0;
+}
+  .email-banner__button {
+    padding: 12px 18px;
+    height: 100%;
+    height: auto;
+    cursor: pointer;
+    min-height: 100%;
+    font-size: 14px;
+    border: none;
+    border-radius: 0;
+    color: {{ settings.button-color }};
+    background: {{ settings.button-bg }};
+    
+}
+  .email-banner__button:hover{
+    opacity: 0.8;
+  }
+  .email-banner__form-group {
+    display: flex;
+    justify-content: center;
+    margin-top: 31px;
+}
+  .section-{{ section.id }}-padding {
+    margin-top: {{ section.settings.padding-top }}px;
+    margin-bottom: {{ section.settings.padding-bottom }}px;
+  }
+  .email__new-title{
+    text-align: center;
+    margin: 20px 0;
+    display: none;
+  }
+  @media screen and (max-width: 749px){
+    .email-banner__name{
+    {% if section.settings.font-size == 's' %}
+    font-size: 16px;
+    {% elsif section.settings.font-size == 'm' %}
+    font-size: 20px;
+    {% elsif section.settings.font-size == 'l' %}
+    font-size: 24px;
+    {% elsif section.settings.font-size == 'xl' %}
+    font-size: 28px;
+    {% elsif section.settings.font-size == '2xl' %}
+    font-size: 28px;
+    {% endif %}
+    margin-bottom: 15px;
+  }
+  }
+</style>
+
+<div class="page-width email-banner__wrapper section-{{ section.id }}-padding ">
+  <h1 class="email-banner__name">
+    {{ section.settings.email-name }}
+  </h1>
+  
+  <p class="email-banner__desc">
+    {{ section.settings.email-desc }}
+  </p>
+
+  <div class='email-banner__sign-up'>
+        <form method="post" action="/contact#contact_form" id="contact_form" accept-charset="UTF-8" class="contact-form">
+            <input type="hidden" name="form_type" value="customer">
+            <input type="hidden" name="utf8" value="✓">
+  
+  
+            <input type="hidden" name="contact[tags]" value="prospect, password page">
+  
+            <div class="email-banner__form-group">
+              <input type="email" name="contact[email]" id="Email" class="email-banner__input input-class" placeholder="Your email">
+              <span class="email-banner__button-cont">
+                <button class='email-banner__button' type="submit" name="commit">
+                  <span>Subscribe</span>
+                </button>
+              </span>
+            </div>
+        </form>
+    <h2 class='email__new-title'>Thanks for your subscription!</h2>
+  </div>
+</div>
+<script>
+window.onload = function() {
+    let newTitle = document.querySelector('.email__new-title');
+    let emailIntro = document.querySelector('.email-banner__form-group'); 
+    
+
+    if (window.location.search === '?customer_posted=true') {
+        if (emailIntro) {
+            emailIntro.style.display = 'none';
+        }
+        if (newTitle) {
+            newTitle.style.display = 'block';
+        }
+    }
+}
+</script>
+{% schema %}
+  {
+    "name": "Newsletter",
+    "settings": [
+      {
+        "type": "text",
+        "id": "email-name",
+        "default": "EVERYBODY CAN’T HAVE LIMITED ITEMS..",
+        "label": "Heading"
+      },
+      {
+        "type": "select",
+        "id": "font-size",
+        "label": "Text size",
+        "options": [
+        {
+          "label": "S",
+          "value": "s"
+        },
+        {
+          "label": "M",
+          "value": "m"
+        },
+        {
+          "label": "L",
+          "value": "l"
+        },
+        {
+          "label": "XL",
+          "value": "xl"
+        },
+        {
+          "label": "2XL",
+          "value": "2xl"
+        },
+      ],
+        "default": "2xl"
+      },
+      {
+        "type": "text",
+        "id": "email-desc",
+        "default": "JOIN OUR EMAIL LIST TO FIND OUT ABOUT THE NEW DROP AND NEVER MISS IT AGAIN",
+        "label": "Description"
+      },
+      {
+        "type": "header",
+        "content": "Padding"
+      },
+      {
+        "type": "range",
+        "id": "padding-top",
+        "min": 20,
+        "max": 120,
+        "step": 1,
+        "label": "Top padding",
+        "unit": "px",
+        "default": 120
+      },
+      {
+        "type": "range",
+        "id": "padding-bottom",
+        "min": 20,
+        "max": 120,
+        "step": 1,
+        "label": "Bottom padding",
+        "unit": "px",
+        "default": 120
+      },
+    ],
+    "presets": [
+      {
+        "name": "Newsletter"
+      }
+    ]
+  }
+{% endschema %}

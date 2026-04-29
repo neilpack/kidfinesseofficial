@@ -1,0 +1,174 @@
+<style>
+  .apple-music-embed-{{ section.id }}-wrapper {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+    margin-top: {{ section.settings.margin_top }}px;
+    margin-bottom: {{ section.settings.margin_bottom }}px;
+  }
+
+  .apple-music-embed-{{ section.id }}-heading {
+    margin-bottom: 0.5rem;
+
+    {% if section.settings.heading_size == 's' %}
+      font-size: 18px;
+    {% elsif section.settings.heading_size == 'm' %}
+      font-size: 24px;
+    {% elsif section.settings.heading_size == 'l' %}
+      font-size: 32px;
+    {% elsif section.settings.heading_size == 'xl' %}
+      font-size: 44px;
+    {% endif %}
+  }
+
+  .apple-music-embed-{{ section.id }}-text {
+    margin-bottom: 1rem;
+    line-height: 1.6;
+  }
+
+  .apple-music-share-btn {
+    margin-top: 20px;
+    padding: 12px 22px;
+    font-size: 14px;
+    background: transparent;
+    border: 1px solid #1c1c1c;
+    color: #1c1c1c;
+    border-radius: 0px;
+    cursor: pointer;
+    letter-spacing: 0.3px;
+    transition: all .18s ease;
+  }
+
+  .apple-music-share-btn:hover {
+    background: #1c1c1c;
+    color: white;
+  }
+</style>
+
+<div class="apple-music-embed-{{ section.id }}-wrapper">
+
+  {% if section.settings.heading != blank %}
+    <h1 class="apple-music-embed-{{ section.id }}-heading">
+      {{ section.settings.heading }}
+    </h1>
+  {% endif %}
+
+  {% if section.settings.description != blank %}
+    <p class="apple-music-embed-{{ section.id }}-text">
+      {{ section.settings.description }}
+    </p>
+  {% endif %}
+
+  <div id="apple-music-embed-container-{{ section.id }}">
+    {{ section.settings.embed_code | raw }}
+  </div>
+
+  <button 
+    class="apple-music-share-btn"
+    id="apple-music-share-btn-{{ section.id }}">
+    Share playlist
+  </button>
+
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const iframe = document.querySelector("#apple-music-embed-container-{{ section.id }} iframe");
+  if (!iframe) return;
+
+  const shareBtn = document.querySelector("#apple-music-share-btn-{{ section.id }}");
+
+  shareBtn.addEventListener("click", async () => {
+    const embedUrl = iframe.getAttribute("src");
+
+    // Convert embed URL to standard Apple Music URL
+    const shareUrl = embedUrl.replace("https://embed.music.apple.com/", "https://music.apple.com/");
+
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: "Apple Music Playlist",
+          url: shareUrl
+        });
+      } catch (err) {
+        console.log("Share canceled");
+      }
+    } else {
+      navigator.clipboard.writeText(shareUrl);
+      shareBtn.innerText = "Copied!";
+      setTimeout(() => shareBtn.innerText = "Share playlist", 1500);
+    }
+  });
+});
+</script>
+
+{% schema %}
+{
+  "name": "Apple Music Embed",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Text"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Featured Playlist"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Enjoy this curated Apple Music playlist."
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "label": "Heading size",
+      "options": [
+        { "label": "Small", "value": "s" },
+        { "label": "Medium", "value": "m" },
+        { "label": "Large", "value": "l" },
+        { "label": "XL", "value": "xl" }
+      ],
+      "default": "m"
+    },
+    {
+      "type": "header",
+      "content": "Apple Music Embed"
+    },
+    {
+      "type": "textarea",
+      "id": "embed_code",
+      "label": "Paste Apple Music iframe",
+      "default": "<iframe allow='autoplay *; encrypted-media *;' frameborder='0' height='450' style='width:100%;overflow:hidden;background:transparent;' sandbox='allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation-by-user-activation' src='https://embed.music.apple.com/us/playlist/xxxx'></iframe>"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "margin_top",
+      "label": "Top spacing",
+      "min": 0,
+      "max": 100,
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "label": "Bottom spacing",
+      "min": 0,
+      "max": 100,
+      "default": 20
+    }
+  ],
+  "presets": [
+    {
+      "name": "Apple Music Embed"
+    }
+  ]
+}
+{% endschema %}

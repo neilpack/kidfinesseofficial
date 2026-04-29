@@ -1,0 +1,31 @@
+<style>
+  .page-title {
+    text-align: center;
+    margin-bottom: 2.5rem;
+    margin-top: 1.2rem;
+  }
+  .main-page-content{
+    margin-top: 1rem;
+    margin-bottom: 1.5rem;
+    line-height: 1.5rem;
+  }
+  .main-page img{
+    max-width: 100%;
+  }
+</style>
+<div class="page-width">
+  <div class="main-page section-{{ section.id }}">
+    <h1 class="page-title">
+      {{ page.title | escape }}
+    </h1>
+    <div class="main-page-content">
+      {{ page.content }}
+    </div>
+  </div>
+</div>
+{% schema %}
+  {
+    "name": "Page Content",
+    "settings": []
+  }
+{% endschema %}

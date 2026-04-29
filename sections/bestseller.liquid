@@ -1,0 +1,233 @@
+<style>
+  .best-content_button{
+    padding: 13px;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    width: fit-content;
+    background: none;
+    border: 1px solid {{ settings.headings-color }};
+    white-space: nowrap;
+    
+  }
+  .best-content_button .button-outline{
+    background: none;
+    color: {{ settings.headings-color }};
+    margin-right: 10px;
+  }
+  
+  .bestseller-images {
+    display: flex;
+    flex-direction: row;
+    max-width: 60%;
+    justify-content: space-between;
+  }
+  .bestseller-images img{
+    max-width: 100%;
+    width: 50%;
+    height: 100%;
+  }
+  .bestseller-images .first-img{
+    padding-right: 5px;
+  }
+  .bestseller-images .second-img{
+    padding-left: 5px;
+  }
+  .bestseller-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  .section-{{ section.id }}-padding {
+    margin-top: {{ section.settings.margin-top }}px;
+    margin-bottom: {{ section.settings.margin-bottom }}px;
+    
+  }
+  .bestseller-content{
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    max-width: 40%;
+    padding: 5rem 4rem 3rem 0rem;
+  }
+  .bestseller-content h2{
+    {% if section.settings.font-size == 's' %}
+    font-size: 16px;
+    {% elsif section.settings.font-size == 'm' %}
+    font-size: 20px;
+    {% elsif section.settings.font-size == 'l' %}
+    font-size: 24px;
+    {% elsif section.settings.font-size == 'xl' %}
+    font-size: 28px;
+    {% endif %}
+  }
+  .bestseller-content p{
+    font-size: 15px;
+  }
+  .bestseller-content > *{
+    margin: 10px 0px;
+  }
+  .best-content_button{
+    margin-top: 15px;
+  }
+  .best-content_button:hover {
+    opacity: 0.8;
+  }
+  
+  @media screen and (min-width: 750px){
+  .bestseller-content h2{
+    {% if section.settings.font-size == 's' %}
+    font-size: 16px;
+    {% elsif section.settings.font-size == 'm' %}
+    font-size: 24px;
+    {% elsif section.settings.font-size == 'l' %}
+    font-size: 32px;
+    {% elsif section.settings.font-size == 'xl' %}
+    font-size: 44px;
+    {% endif %}
+  }
+  .best-content_button{
+    margin-top: 35px;
+  }
+  }
+  @media screen and (max-width: 749px){
+  .bestseller-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+  }
+  .bestseller-content {
+    max-width: 100%;
+    padding: 0rem 0rem 1rem 0rem;
+  }
+  .bestseller-images {
+    max-width: 100%;
+  }
+  }
+</style>
+
+<div class="page-width">  
+  <div class="bestseller-container section-{{ section.id }}-padding ">
+    <div class="bestseller-content">
+      <h2>{{ section.settings.title }}</h2>
+      <p>{{ section.settings.description }}</p>
+      <a href="{{ section.settings.button-link }}" class="best-content_button">
+        <span class="button-outline bestseller-button" >{{ section.settings.button-text }}</span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="46" height="8" viewBox="0 0 46 8" fill="none">
+          <path d="M45.3536 4.35355C45.5488 4.15829 45.5488 3.84171 45.3536 3.64645L42.1716 0.464466C41.9763 0.269204 41.6597 0.269204 41.4645 0.464466C41.2692 0.659728 41.2692 0.976311 41.4645 1.17157L44.2929 4L41.4645 6.82843C41.2692 7.02369 41.2692 7.34027 41.4645 7.53553C41.6597 7.7308 41.9763 7.7308 42.1716 7.53553L45.3536 4.35355ZM0 4.5H45V3.5H0V4.5Z" fill="{{ settings.headings-color }}"/>
+        </svg>
+      </a>
+    </div>
+    
+    <div class="bestseller-images">
+      <img class="first-img" src="{{ section.settings.first-img | img_url: 'master' }}">
+      <img class="second-img" src="{{ section.settings.second-img | img_url: 'master' }}">
+    </div>
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "Bestseller",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Text"
+      },
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Heading",
+        "default": "BESTSELLER"
+      },
+      {
+        "type": "select",
+        "id": "font-size",
+        "label": "Text size",
+        "options": [
+          {
+            "label": "S",
+            "value": "s"
+          },
+          {
+            "label": "M",
+            "value": "m"
+          },
+          {
+            "label": "L",
+            "value": "l"
+          },
+          {
+            "label": "XL",
+            "value": "xl"
+          }
+      ],
+        "default": "m"
+      },
+      {
+        "type": "text",
+        "id": "description",
+        "label": "Description",
+        "default": "'PRODUCT NAME' from 'COLLECTION NAME' collection"
+      },
+      {
+        "type": "header",
+        "content": "Images"
+      },
+      {
+        "type": "image_picker",
+        "id": "first-img",
+        "label": "First photo",
+        "info": "Make sure that image in portrait resolution (1400px x 1867px)"
+      },
+      {
+        "type": "image_picker",
+        "id": "second-img",
+        "label": "Second photo",
+        "info": "Make sure that image in portrait resolution (1400px x 1867px)"
+      },
+      {
+        "type": "header",
+        "content": "Button"
+      },
+      {
+        "type": "url",
+        "id": "button-link",
+        "label": "Button link"
+      },
+      {
+        "type": "text",
+        "id": "button-text",
+        "label": "Button text",
+        "default": "SHOP ALL"
+      },
+      {
+        "type": "header",
+        "content": "Padding"
+      },
+      {
+      "type": "range",
+      "id": "margin-top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 100,
+      "default": 30,
+      "step": 1
+      },
+      {
+      "type": "range",
+      "id": "margin-bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 100,
+      "default": 15,
+      "step": 1
+      }
+    ],
+    "presets": [
+      {
+        "name": "Bestseller"
+      }
+    ]
+  }
+{% endschema %}

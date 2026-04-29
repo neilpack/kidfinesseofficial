@@ -1,0 +1,150 @@
+<style>
+  .section-{{ section.id }}-padding {
+    margin-top: {{ section.settings.margin-top }}px;
+    margin-bottom: {{ section.settings.margin-bottom }}px;
+  }
+  .f-collection-title{
+    padding-bottom: 15px;
+    {% if section.settings.font-size == 's' %}
+    font-size: 16px;
+    {% elsif section.settings.font-size == 'm' %}
+    font-size: 24px;
+    {% elsif section.settings.font-size == 'l' %}
+    font-size: 32px;
+    {% elsif section.settings.font-size == 'xl' %}
+    font-size: 44px;
+    {% endif %}
+  }
+  .product-list{
+    margin-bottom: inherit;
+  }
+  @media screen and (max-width: 749px){
+  .f-collection-title{
+    {% if section.settings.font-size == 's' %}
+    font-size: 16px;
+    {% elsif section.settings.font-size == 'm' %}
+    font-size: 20px;
+    {% elsif section.settings.font-size == 'l' %}
+    font-size: 24px;
+    {% elsif section.settings.font-size == 'xl' %}
+    font-size: 28px;
+    {% endif %}
+  }  
+  }
+</style>
+<div class="page-width featured-collection section-{{ section.id }}-padding ">
+  {% if section.settings.collection-title != blank %}
+    <h2 class="f-collection-title">{{ section.settings.collection-title }}</h2>
+  {% endif %}
+  <div class="product-list">
+    {% assign selected_collection = collections[section.settings.collection_handle] %}
+    {% assign products_to_display = selected_collection.products %}
+    
+    {% if section.settings.collection_handle == blank %}
+      {% assign products_to_display = collections['all'].products %}
+    {% endif %}
+    
+    {% for product in products_to_display limit: section.settings.products_per_page %}
+      <div class='product-list__product-block fade-in'>
+        <a class='product-list__img-link' href='{{ product.url }}'>
+          <img class='product-list__product-img' src='{{ product | img_url: 'master' }}' onload="this.closest('.product-list__product-block').classList.add('loaded')">
+        </a>
+        <a class='product-list__product-name' href='{{ product.url }}'>{{ product.title }}</a>
+        {% if product.compare_at_price > product.price and product.compare_at_price > 0 %}
+          <p class='product-list__product-price'>{{ product.price | money_with_currency }}<span><strike style="margin-left: 10px;">{{ product.compare_at_price | money_with_currency }}</strike></span></p>
+        {% else %}
+          {% assign available = false %}
+          {% for variant in product.variants %}
+            {% if variant.inventory_management == nil or variant.inventory_policy == 'continue' %}
+              {% assign available = true %}
+              {% break %}
+            {% elsif variant.inventory_quantity > 0 %}
+              {% assign available = true %}
+              {% break %}
+            {% endif %}
+          {% endfor %}
+          {% if available %}
+            <p class='product-list__product-price'>{{ product.price | money_with_currency }}</p>
+          {% else %}
+            <p class='product-list__product-price'>{{ product.price | money_with_currency }} — Sold Out</p>
+          {% endif %}
+        {% endif %}
+      </div>
+    {% endfor %}
+  </div>
+</div>
+{% schema %}
+{
+  "name": "Featured Products",
+  "settings": [
+    {
+      "type": "collection",
+      "id": "collection_handle",
+      "label": "Select a collection",
+      "info": "Do not select a collection if you want to display all products"
+    },
+    {
+      "type": "range",
+      "id": "products_per_page",
+      "label": "Products to show",
+      "min": 1,
+      "max": 100,
+      "default": 10,
+      "step": 1
+    },
+    {
+      "type": "text",
+      "id": "collection-title",
+      "label": "Title",
+      "default": "COLLECTION NAME"
+    },
+    {
+      "type": "select",
+      "id": "font-size",
+      "label": "Text size",
+      "options": [
+        {
+          "label": "S",
+          "value": "s"
+        },
+        {
+          "label": "M",
+          "value": "m"
+        },
+        {
+          "label": "L",
+          "value": "l"
+        },
+        {
+          "label": "XL",
+          "value": "xl"
+        }
+      ],
+        "default": "m"
+    },
+    {
+      "type": "range",
+      "id": "margin-top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 70,
+      "default": 30,
+      "step": 1
+    },
+    {
+      "type": "range",
+      "id": "margin-bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 70,
+      "default": 15,
+      "step": 1
+    }
+  ],
+  "presets": [
+    {
+    "name": "Featured collection"
+    }
+  ]
+}
+{% endschema %}

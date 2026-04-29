@@ -1,0 +1,250 @@
+<style>
+  .banner-button{
+    padding: 13px;
+    font-size: 16px;
+    display: block;
+    width: fit-content;
+    color: {{ section.settings.button-color }};
+    background: {{ section.settings.button-bg }};
+  }
+
+  .image-banner-container {
+    height: {{ section.settings.banner-height }}vh;
+    display: flex;
+    align-items: flex-end;
+    background: url('{{ section.settings.image-banner | img_url: 'master' }}');
+    background-size: cover;
+    background-position: center;
+    position: relative;
+  }
+
+  .section-{{ section.id }}-padding {
+    margin-top: {{ section.settings.padding-top }}px;
+    margin-bottom: {{ section.settings.padding-bottom }}px;    
+  }
+
+  .image-banner-container::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgb(0 0 0 / {{ section.settings.image-overlay }}%);
+  }
+
+  .banner-content{
+    margin: 50px 25px;
+    position: relative;
+    z-index: 3;
+  }
+
+  .banner-content_h2{
+    padding-bottom: 15px;
+    color: {{ section.settings.text-color }};
+    {% if section.settings.font-size == 's' %}
+      font-size: 16px;
+    {% elsif section.settings.font-size == 'm' %}
+      font-size: 24px;
+    {% elsif section.settings.font-size == 'l' %}
+      font-size: 32px;
+    {% elsif section.settings.font-size == 'xl' %}
+      font-size: 44px;
+    {% endif %}
+  }
+
+  {% if settings.enable-header-overlay and template == 'index' %}
+  .header-wrapper {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    padding: 0px 25px;
+    z-index: 10;
+  }
+  .right-nav, .right-nav > *, .header-logo-text{
+      color: {{ settings.header-overlay-menu-color }};
+  }
+  @media screen and (min-width: 749px){
+    .menu-item a{
+      color: {{ settings.header-overlay-menu-color }};
+    }
+  }
+  {% endif %}
+
+  @media screen and (max-width: 749px){
+    .image-banner-container {
+      {% if section.settings.image-banner-mobile %}
+      background: url('{{ section.settings.image-banner-mobile | img_url: 'master' }}');
+      {% endif %}
+      background-size: cover;
+      background-position: center;
+      height: {{ section.settings.banner-height-mobile | default: section.settings.banner-height }}vh;
+    }
+
+    .banner-content_h2{
+      {% if section.settings.font-size == 's' %}
+        font-size: 16px;
+      {% elsif section.settings.font-size == 'm' %}
+        font-size: 20px;
+      {% elsif section.settings.font-size == 'l' %}
+        font-size: 24px;
+      {% elsif section.settings.font-size == 'xl' %}
+        font-size: 28px;
+      {% endif %}
+    }
+
+    .banner-content{
+      margin: 50px 15px;
+    }
+  }
+</style>
+
+<div class="image-banner-container section-{{ section.id }}-padding ">
+  <div class="banner-content">
+    {% if section.settings.h2-text != blank %}
+      <h2 class="banner-content_h2">{{ section.settings.h2-text }}</h2>
+    {% endif %}
+    {% if section.settings.button-text != blank %}
+      <div class="banner-content_button">
+        <a class="button banner-button" href="{{ section.settings.button-link }}">{{ section.settings.button-text }}</a>
+      </div>
+    {% endif %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Image banner",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image-banner",
+      "label": "Image (PC view)"
+    },
+    {
+      "type": "image_picker",
+      "id": "image-banner-mobile",
+      "label": "Image (Mobile view)"
+    },
+    {
+      "type": "range",
+      "id": "image-overlay",
+      "min": 0,
+      "max": 90,
+      "step": 1,
+      "label": "Image overlay",
+      "info": "Select an overlay to make the title on image visible",
+      "unit": "%",
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "banner-height",
+      "min": 50,
+      "max": 100,
+      "step": 1,
+      "label": "Image banner height (PC view)",
+      "unit": "%",
+      "default": 77
+    },
+    {
+      "type": "range",
+      "id": "banner-height-mobile",
+      "min": 30,
+      "max": 100,
+      "step": 1,
+      "label": "Image banner height (Mobile view)",
+      "unit": "%",
+      "default": 50
+    },
+    {
+      "type": "header",
+      "content": "Title"
+    },
+    {
+      "type": "text",
+      "id": "h2-text",
+      "label": "Title",
+      "default": "NEW DROP OUT NOW!"
+    },
+    {
+      "type": "color",
+      "id": "text-color",
+      "label": "Title color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "select",
+      "id": "font-size",
+      "label": "Text size",
+      "options": [
+        {"label": "S", "value": "s"},
+        {"label": "M", "value": "m"},
+        {"label": "L", "value": "l"},
+        {"label": "XL", "value": "xl"}
+      ],
+      "default": "m"
+    },
+    {
+      "type": "header",
+      "content": "Button"
+    },
+    {
+      "type": "url",
+      "id": "button-link",
+      "label": "Button link"
+    },
+    {
+      "type": "text",
+      "id": "button-text",
+      "label": "Button text",
+      "default": "SHOP ALL"
+    },
+    {
+      "type": "color",
+      "id": "button-color",
+      "label": "Button text color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "button-bg",
+      "label": "Button background color",
+      "default": "#000000"
+    },
+    {
+      "type": "header",
+      "content": "Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding-top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "label": "Top padding",
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding-bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "label": "Bottom padding",
+      "unit": "px",
+      "default": 20
+    }
+  ],
+  "presets": [
+    {
+      "name": "Image banner"
+    }
+  ]
+}
+{% endschema %}

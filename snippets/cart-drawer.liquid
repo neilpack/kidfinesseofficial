@@ -1,0 +1,266 @@
+<div id="CartDrawerOverlay" class="cart-drawer-overlay"></div>
+<div id="CartDrawer" class="cart-drawer">
+  <div class="cart-drawer__header">
+    <h2>Your Cart</h2>
+    <button id="CloseCartDrawer" class="cart-drawer__close-btn">
+      <svg class="cart-cross" xmlns="http://www.w3.org/2000/svg" width="45" height="41" viewBox="0 0 45 41" fill="none">
+      <path d="M13 30.4902L31.4902 12" stroke="{{ settings.cart-drawer-text }}" stroke-width="2"/>
+      <path d="M13 12L31.4902 30.4902" stroke="{{ settings.cart-drawer-text }}" stroke-width="2"/>
+      </svg>
+    </button>
+  </div>
+  <div id="CartDrawerContent" class="cart-drawer__content">
+    {% if cart.item_count > 0 %}
+      <div id="CartDrawerItems">
+        {% for item in cart.items %}
+          <div class="cart-drawer-item">
+            <div class="cart-drawer-item__img-cont">
+              <img class="cart-drawer-item__img" src="{{ item.image | img_url: 'master' }}" alt="{{ item.title }}">
+            </div>
+            <div class="cart-drawer-item__details">
+              <h4 class="cart-drawer-item__title">{{ item.title }}</h4>
+              <p class="cart-drawer-item__final-price">{{ item.final_price | money_with_currency }}</p>
+              <div class="cart-drawer-item__quantity">
+                <!-- <span>Quantity:</span> -->
+                <div class="quantity-wrapper-drawer"
+                     data-key="{{ item.key }}"
+                     data-quantity="{{ item.quantity }}"
+                     data-inventory="{{ item.variant.inventory_quantity }}"
+                     data-track-quantity="{% if item.variant.inventory_management %}true{% else %}false{% endif %}"
+                     data-allow-oversell="{{ item.variant.inventory_policy == 'continue' }}">
+                  <button class="cart-drawer__quantity-btn cart-drawer__quantity-btn-minus" type="button">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                      <path d="M21 12C21 12.1989 20.921 12.3897 20.7803 12.5303C20.6397 12.671 20.4489 12.75 20.25 12.75H3.75C3.55109 12.75 3.36032 12.671 3.21967 12.5303C3.07902 12.3897 3 12.1989 3 12C3 11.8011 3.07902 11.6103 3.21967 11.4697C3.36032 11.329 3.55109 11.25 3.75 11.25H20.25C20.4489 11.25 20.6397 11.329 20.7803 11.4697C20.921 11.6103 21 11.8011 21 12Z" fill="{{ settings.cart-drawer-text }}"/>
+                    </svg>
+                  </button>
+                  <span id="cart-drawer-quantity-{{ item.key }}" class="cart-drawer__quantity-value">{{ item.quantity }}</span>
+                  <button class="cart-drawer__quantity-btn cart-drawer__quantity-btn-plus" type="button">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 25 25" fill="none">
+                      <path d="M21.4355 12.6982C21.4355 12.8972 21.3565 13.0879 21.2159 13.2286C21.0752 13.3692 20.8845 13.4482 20.6855 13.4482H13.1855V20.9482C13.1855 21.1472 13.1065 21.3379 12.9659 21.4786C12.8252 21.6192 12.6345 21.6982 12.4355 21.6982C12.2366 21.6982 12.0459 21.6192 11.9052 21.4786C11.7646 21.3379 11.6855 21.1472 11.6855 20.9482V13.4482H4.18555C3.98663 13.4482 3.79587 13.3692 3.65522 13.2286C3.51456 13.0879 3.43555 12.8972 3.43555 12.6982C3.43555 12.4993 3.51456 12.3086 3.65522 12.1679C3.79587 12.0273 3.98663 11.9482 4.18555 11.9482H11.6855V4.44824C11.6855 4.24933 11.7646 4.05856 11.9052 3.91791C12.0459 3.77726 12.2366 3.69824 12.4355 3.69824C12.6345 3.69824 12.8252 3.77726 12.9659 3.91791C13.1065 4.05856 13.1855 4.24933 13.1855 4.44824V11.9482H20.6855C20.8845 11.9482 21.0752 12.0273 21.2159 12.1679C21.3565 12.3086 21.4355 12.4993 21.4355 12.6982Z" fill="{{ settings.cart-drawer-text }}"/>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+              <button class="cart-drawer-item__remove-link" type="button" data-key="{{ item.key }}">Remove</button>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+      <div class="cart-drawer-checkout">
+        <p id="CartDrawerTotal" class="cart-drawer__total">Total: {{ cart.total_price | money_with_currency }}</p>
+        <form method="POST" action="/checkout">
+          <button type="submit" class="cart-drawer__checkout-btn button">Checkout</button>
+        </form>
+      </div>
+    {% else %}
+      <div id="CartDrawerEmpty" class="cart-drawer-empty">
+        <p>Your cart is empty.</p>
+      </div>
+    {% endif %}
+  </div>
+</div>
+
+<style>
+.cart-drawer {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  right: -100%;
+  top: 0;
+  width: 100%;
+  max-width: 400px;
+  height: 100%;
+  background: {{ settings.cart-drawer-bg }};
+  z-index: 1000;
+  overflow-y: auto;
+  transition: right 0.3s ease;
+}
+.cart-drawer.open {
+  right: 0;
+}
+.cart-drawer__header {
+    padding: 1rem;
+    display: flex;
+    flex-grow: 0;
+    justify-content: space-between;
+    align-items: center;
+}
+.cart-drawer__header h2 {
+    color: {{ settings.cart-drawer-text }};
+}
+#CartDrawerContent {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    flex-shrink: 1;
+}
+.cart-drawer__close-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+
+}
+.cart-cross{
+  width: 35px;
+  height: 35px;
+}
+.cart-drawer-item {
+  display: flex;
+  padding: 1rem;
+}
+.cart-drawer-item__img {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  object-fit: contain;
+  height: 100%;
+}
+.cart-drawer-item__img-cont{
+    position: relative;
+    width: 100px;
+    height: 100px;
+    margin-right: 15px;
+}
+.cart-drawer-item__img-cont::before {
+    content: "";
+    display: block;
+    padding-bottom: 100%;
+    height: 100%;
+    width: 100%;
+}
+
+#CartDrawerItems {
+    /* padding-bottom: 8rem; */
+    overflow-y: auto;
+    -webkit-box-flex: 1;
+    -webkit-flex-grow: 1;
+}
+.cart-drawer-item__quantity{
+  display: flex;
+  align-items: center;
+  margin: 0.25rem 0 0.25rem 0;
+  font-size: 14px;
+}
+  
+.cart-drawer-checkout {
+  padding: 1.5rem 1rem;
+  width: 100%;
+  -webkit-flex-grow: 0;
+  flex-grow: 0;
+  max-width: 400px;
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+}
+  
+.cart-drawer-item__details {
+  flex: 1;
+}
+.cart-drawer-item__title {
+  font-size: 1rem;
+  margin: 0 0 0.5rem 0;
+  color: {{ settings.cart-drawer-text }};
+}
+.cart-drawer-item__final-price{
+  font-size: 14px;
+  color: {{ settings.cart-drawer-text }};
+}
+.cart-drawer-item__remove-link {
+  cursor: pointer;
+  font-size: 13px;
+  text-decoration: underline !important;
+  text-underline-offset: 0.2rem !important;
+  border: none;
+  background: none;
+  -webkit-appearance: none;
+  color: {{ settings.cart-drawer-text }};
+}
+.cart-drawer__total {
+  text-align: center;
+  margin-bottom: 1rem;
+  font-weight: bold;
+  font-size: 18px;
+  color: {{ settings.cart-drawer-text }};
+}
+.cart-drawer__checkout-btn {
+  width: 100%;
+  border: none;
+  cursor: pointer;
+  -webkit-appearance: none;
+  -webkit-border-radius: 0;
+  padding: 13px;
+  font-size: 16px;
+}
+.cart-drawer__checkout-btn:hover {
+  background: #333;
+}
+.cart-drawer-empty {
+  padding: 2rem;
+  text-align: center;
+  color: {{ settings.cart-drawer-text }};
+}
+.quantity-wrapper-drawer {
+    display: flex;
+    align-items: center;
+}
+.cart-drawer__quantity-btn svg{
+  width: 13px;
+  height: 13px;
+}
+.cart-drawer__quantity-btn{
+  padding: 5px;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+}
+.cart-drawer__quantity-btn-minus{
+  padding-left: 0px;
+}
+.cart-drawer__quantity-value{
+  margin: 0 0.4rem;
+  text-align: center;
+  font-size: 13px;
+  color: {{ settings.cart-drawer-text }};
+}
+
+.cart-drawer-overlay {
+  display: none; /* По умолчанию скрыто */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 999; /* На уровне с Drawer */
+  background-color: #49494985;
+}
+.cart-drawer-overlay.active {
+  display: block; /* Показываем, если Drawer открыт */
+}
+.cart-drawer__quantity-btn-minus.disabled{
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+.cart-drawer__quantity-btn-plus.disabled{
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+@media screen and (max-width: 500px){
+  .cart-drawer{
+    max-width: 345px;
+  }
+  .cart-drawer-checkout{
+  max-width: 345px;
+  
+}
+}
+</style>
+<script>
+  window.ShopifyCart = {
+    total_price_formatted: "{{ cart.total_price | money_with_currency }}",
+    total_price: {{ cart.total_price }},
+    currency: "{{ shop.currency }}"
+  };
+</script>

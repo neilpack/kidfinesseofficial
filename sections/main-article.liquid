@@ -1,0 +1,152 @@
+<style>
+.article-img{
+  max-width: 100%;
+}
+.article__meta {
+  font-size: 0.875rem;
+  margin-bottom: 10px;
+  color: {{ settings.body-color }};
+  flex-direction: column;
+}
+.article__meta span {
+  display: block;
+  color: {{ settings.body-color }};
+  padding-bottom: 8px;
+}
+.article-template__title{
+   padding-bottom: 15px;
+  {% if section.settings.font-size == 's' %}
+  font-size: 16px;
+  {% elsif section.settings.font-size == 'm' %}
+  font-size: 24px;
+  {% elsif section.settings.font-size == 'l' %}
+  font-size: 32px;
+  {% elsif section.settings.font-size == 'xl' %}
+  font-size: 44px;
+  {% endif %} 
+}
+
+.article__header{
+  margin-top: 15px;
+  margin-bottom: 20px;
+}
+
+.article__content img {
+    max-width: 100%;
+    margin: 10px 0px;
+}
+.article__content p {
+  line-height: 1.5rem;
+}
+
+.article-template{
+  margin-top: {{ section.settings.margin_top }}px;
+  margin-bottom: {{ section.settings.margin_bottom }}px;
+}
+
+@media screen and (max-width: 749px){
+ .article-template__title {
+  {% if section.settings.font-size == 's' %}
+  font-size: 16px;
+  {% elsif section.settings.font-size == 'm' %}
+  font-size: 20px;
+  {% elsif section.settings.font-size == 'l' %}
+  font-size: 24px;
+  {% elsif section.settings.font-size == 'xl' %}
+  font-size: 28px;
+  {% endif %}
+} 
+}
+</style>
+<div class="article-template page-width">
+  {%- if article.image and section.settings.show_featured_image -%}
+    <img class="article-img" src="{{ article.image | img_url: 'master' }}" alt="{{ article.title }}">
+  {% endif %}
+  <div class="article__header">
+    <h1 class="article-template__title">
+      {{ article.title | escape }}
+    </h1>
+  
+    {% if section.settings.show_date or section.settings.show_author %}
+      <div class="article__meta">
+        {% if section.settings.show_date %}
+          <span class="article__date">{{ article.published_at | date: "%d %B, %Y" }}</span>
+        {% endif %}
+        {% if section.settings.show_author %}
+          <span class="article__author">Author: {{ article.author }}</span>
+        {% endif %}
+      </div>
+    {% endif %}
+  </div>
+  <div class="article__content">
+    {{ article.content }}
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "Article Template",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "show_featured_image",
+        "label": "Show featured images",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_date",
+        "label": "Show post date",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_author",
+        "label": "Show post author",
+        "default": true
+      },
+      {
+        "type": "select",
+        "id": "font-size",
+        "label": "Article heading size",
+        "options": [
+        {
+          "label": "S",
+          "value": "s"
+        },
+        {
+          "label": "M",
+          "value": "m"
+        },
+        {
+          "label": "L",
+          "value": "l"
+        },
+        {
+          "label": "XL",
+          "value": "xl"
+        }
+      ],
+        "default": "m"
+    },
+    {
+      "type": "range",
+      "id": "margin_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 70,
+      "default": 30,
+      "step": 1
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 70,
+      "default": 30,
+      "step": 1
+    }
+    ]
+  }
+{% endschema %}

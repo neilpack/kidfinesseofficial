@@ -1,0 +1,77 @@
+<style>
+.pageloader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: {{ settings.pageloader-bg }}; 
+    z-index: 998;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+    visibility: hidden;
+}
+
+.pageloader.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.pageloader-logo-text{
+    font-family: var(--font-heading-family) !important;
+    font-style: var(--font-heading-style) !important;
+    font-weight: var(--font-heading-weight) !important;
+    font-size: 22px;
+}
+ .pageloader-logo{
+    width: {{ settings.pageloader-logo-size }}px;
+    max-width: 100%;
+  }
+
+@media screen and (max-width: 500px){
+  .pageloader-logo-text{
+    font-size: 19px;
+}
+ .pageloader-logo{
+    width: {{ settings.pageloader-logo-size-mobile }}px;
+    max-width: 100%;
+  }
+}
+</style>
+
+<div id="pageloader" class="pageloader">
+    <div class="pageloader-logo-cont">
+      {%- if settings.pageloader-logo != blank -%}
+        <img class="pageloader-logo" src="{{ settings.pageloader-logo | img_url: 'master' }}" loading="eager">
+      {%- else -%}
+        <span class="pageloader-logo-text">{{ shop.name }}</span>
+      {%- endif -%}
+    </div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const loader = document.getElementById("pageloader");
+
+    function showLoader() {
+        loader.classList.add("show");
+    }
+
+    function hideLoader() {
+        loader.style.opacity = '0';
+        setTimeout(() => {
+            loader.classList.remove("show");
+        }, 400);
+    }
+
+    showLoader();
+
+    window.addEventListener("load", function() {
+        setTimeout(hideLoader, 1000); 
+    });
+});
+
+</script>

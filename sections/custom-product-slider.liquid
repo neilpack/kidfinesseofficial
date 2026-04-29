@@ -1,0 +1,250 @@
+<section class="custom-product-slider">
+  {% assign current_product = product %}
+  {% if section.settings.product != blank %}
+    {% assign current_product = all_products[section.settings.product] %}
+  {% endif %}
+
+  {% if current_product %}
+    <div class="product-slider-container">
+      <button type="button" class="gallery-arrow left" aria-label="Previous">
+        <svg width="24" height="24" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+          <path d="M65 10 L25 50 L65 90" stroke="currentColor" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </button>
+
+      <div class="product-image-wrapper">
+        {% for image in current_product.images %}
+          <img 
+            src="{{ image | image_url: width: 600 }}" 
+            alt="{{ current_product.title }}" 
+            class="product-main-image {% if forloop.first %}active{% endif %}">
+        {% endfor %}
+      </div>
+
+      <button type="button" class="gallery-arrow right" aria-label="Next">
+        <svg width="24" height="24" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+          <path d="M35 10 L75 50 L35 90" stroke="currentColor" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </button>
+    </div>
+
+    <p class="product-title-display">{{ current_product.title }}</p>
+
+    <div class="button-wrapper">
+      {% if current_product.available %}
+        <a class="button custom-button buy-now" href="{{ current_product.url }}">Buy Now</a>
+      {% else %}
+        <span class="button custom-button sold-out">Sold Out</span>
+      {% endif %}
+    </div>
+
+    <div class="share-wrapper">
+      <button class="share-button" onclick="shareProduct('{{ current_product.title | escape }}', '{{ shop.url }}{{ current_product.url }}')">Share</button>
+    </div>
+  {% else %}
+    <p style="text-align:center;">No product selected.</p>
+  {% endif %}
+</section>
+
+<style>
+.custom-product-slider {
+  text-align: center;
+  margin: 2rem auto;
+  max-width: 350px;
+}
+
+.product-slider-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 5;
+}
+
+.product-image-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 300px;
+  overflow: hidden;
+}
+
+.product-main-image {
+  width: 100%;
+  height: auto; /* ✅ image height adjusts naturally */
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.product-main-image.active {
+  opacity: 1;
+  position: relative;
+  z-index: 2;
+}
+
+
+.product-title-display {
+  font-size: 15px;
+  font-weight: 600;
+  margin: 0.7rem 0 0.4rem;
+}
+
+/* Arrows */
+.gallery-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 20;
+  color: black;
+  border: none;
+  cursor: pointer;
+  background: none;
+  padding: 0;
+}
+
+/* Default mobile spacing */
+.gallery-arrow.left { left: -15px; }
+.gallery-arrow.right { right: -15px; }
+
+/* Buttons */
+.custom-button {
+  padding: 6px 10px;
+  font-size: 12px;
+  border-radius: 2px;
+  text-transform: uppercase;
+}
+
+.buy-now {
+  background: black;
+  color: white;
+  border: 1px solid black;
+}
+
+.sold-out {
+  background: transparent !important;
+  color: black !important;
+  border: none !important;
+}
+
+.button-wrapper {
+  display: flex;
+  justify-content: center;
+  margin: 0.8rem 1rem 1rem;
+}
+
+<div class="share-wrapper">
+  <div class="share-box">
+    <div class="sharethis-inline-share-buttons"></div>
+  </div>
+</div>
+
+.share-box {
+  border: 1px solid black;
+  background: white;
+  padding: 6px 14px;
+  border-radius: 4px;
+  display: inline-block;
+  margin: 0 auto;
+}
+
+.share-box:hover {
+  background: black;
+  color: white;
+}
+
+
+.share-button {
+  border: 1px solid black;
+  background: white;
+  color: black;
+  padding: 6px 14px;
+  border-radius: 0px;
+  cursor: pointer;
+}
+
+/* PC Version */
+@media (min-width: 768px) {
+  .gallery-arrow {
+    background: none !important;
+  }
+  .gallery-arrow.left { left: -120px; }
+  .gallery-arrow.right { right: -120px; }
+  .gallery-arrow svg {
+    width: 20px;
+    height: 20px;
+  }
+}
+</style>
+
+<script>
+function initProductSliders() {
+  document.querySelectorAll(".custom-product-slider").forEach(slider => {
+    const images = slider.querySelectorAll(".product-main-image");
+    const prev = slider.querySelector(".gallery-arrow.left");
+    const next = slider.querySelector(".gallery-arrow.right");
+
+    if (!images.length || !prev || !next) return;
+
+    let current = 0;
+
+    function showImage(index) {
+      images.forEach(img => img.classList.remove("active"));
+      images[index].classList.add("active");
+
+      prev.style.display = index === 0 ? "none" : "block";
+      next.style.display = index === images.length - 1 ? "none" : "block";
+    }
+
+    prev.onclick = () => {
+      if (current > 0) {
+        current--;
+        showImage(current);
+      }
+    };
+
+    next.onclick = () => {
+      if (current < images.length - 1) {
+        current++;
+        showImage(current);
+      }
+    };
+
+    showImage(current);
+  });
+}
+
+document.addEventListener("DOMContentLoaded", initProductSliders);
+
+// ✅ Needed so arrows work in Shopify Editor (sections reload dynamically)
+document.addEventListener("shopify:section:load", initProductSliders);
+
+function shareProduct(title, url) {
+  const text = `${title} - Check it out: ${url}`;
+  if (navigator.share) {
+    navigator.share({ title, text, url });
+  } else {
+    navigator.clipboard.writeText(text);
+    alert('Product link copied!');
+  }
+}
+
+</script>
+
+
+{% schema %}
+{
+  "name": "Custom Product Slider",
+  "settings": [
+    {
+      "type": "product",
+      "id": "product",
+      "label": "Select product"
+    }
+  ],
+  "presets": [
+    { "name": "Custom Product Slider" }
+  ]
+}
+{% endschema %}

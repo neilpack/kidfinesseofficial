@@ -1,0 +1,179 @@
+<style>
+  .faq-block {
+    background: none;
+    margin-bottom: 30px;
+    border-bottom: 1px solid {{ settings.headings-color }};
+  }
+  .faq-section {
+    margin: auto;
+    max-width: 1100px;
+  }
+  .section-{{ section.id }}-padding {
+    margin-top: {{ section.settings.margin-top }}px;
+    margin-bottom: {{ section.settings.margin-bottom }}px;
+  }
+  .question {
+    padding: 16px 0px;
+    margin: 0;
+    cursor: pointer;
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: {{ section.settings.question_size_pc }}px;
+  }
+  .right-arrow-corner, .minus-arrow-icon {
+    transition: transform 0.3s ease-out;
+  }
+  .right-arrow-corner {
+    display: block;
+  }
+  .minus-arrow-icon {
+    display: none;
+    transform: rotate(0deg);
+  }
+  .active .right-arrow-corner {
+    display: none;
+  }
+  .active .minus-arrow-icon {
+    display: block;
+  }
+  .answer {
+    background: none;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+  }
+  .answer p {
+    margin-top: 0;
+    margin-block-end: 1em;
+  }
+  @media screen and (max-width: 749px){
+      .faq-section {
+    max-width: 100%;
+  }
+    .question {
+      font-size: {{ section.settings.question_size_mobile }}px;
+  }
+  }
+
+</style>
+
+<div class="faq-section page-width section-{{ section.id }}-padding ">
+  
+  {% for block in section.blocks %}
+    <div class="faq-block">
+      <h2 class="question">{{ block.settings.question }} 
+      <svg class="right-arrow-corner" xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewBox="0 0 667 667" fill="none">
+        <path d="M366.667 33.3333C366.667 14.924 351.743 0 333.333 0C314.923 0 300 14.924 300 33.3333V300H33.3333C14.924 300 0 314.923 0 333.333C0 351.743 14.924 366.667 33.3333 366.667H300V633.333C300 651.743 314.923 666.667 333.333 666.667C351.743 666.667 366.667 651.743 366.667 633.333V366.667H633.333C651.743 366.667 666.667 351.743 666.667 333.333C666.667 314.923 651.743 300 633.333 300H366.667V33.3333Z" fill="{{ settings.headings-color }}"/>
+      </svg>
+    
+      <svg class="minus-arrow-icon" xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewBox="0 0 667 667" fill="none">
+        <g clip-path="url(#clip0_62_9)">
+          <path d="M366.667 33.3333C366.667 14.924 351.743 0 333.333 0C314.923 0 300 14.924 300 33.3333V300H33.3333C14.924 300 0 314.923 0 333.333C0 351.743 14.924 366.667 33.3333 366.667H300V633.333C300 651.743 314.923 666.667 333.333 666.667C351.743 666.667 366.667 651.743 366.667 633.333V366.667H633.333C651.743 366.667 666.667 351.743 666.667 333.333C666.667 314.923 651.743 300 633.333 300H366.667V33.3333Z" fill="{{ settings.headings-color }}"/>
+        </g>
+        <defs>
+        <clipPath id="clip0_62_9">
+          <rect width="667" height="67" fill="none" transform="translate(0 300)"/>
+        </clipPath>
+        </defs>
+      </svg>
+      </h2>
+      <div class="answer">
+        <p>{{ block.settings.answer }}</p>
+      </div>
+    </div>
+  {% endfor %}
+</div>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    var questions = document.getElementsByClassName("question");
+    for (var i = 0; i < questions.length; i++) {
+      questions[i].addEventListener("click", function() {
+        this.classList.toggle("active");
+        var answer = this.nextElementSibling;
+        if (answer.style.maxHeight) {
+          answer.style.maxHeight = null;
+        } else {
+          answer.style.maxHeight = answer.scrollHeight + "px";
+        }
+      });
+    }
+  });
+</script>
+
+{% schema %}
+{
+  "name": "FAQ Section",
+  "class": "faq-section",
+  "settings": [
+    {
+      "type": "range",
+      "id": "question_size_pc",
+      "label": "Question size (PC view)",
+      "min": 10,
+      "max": 35,
+      "step": 1,
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "question_size_mobile",
+      "label": "Question size (Mobile view)",
+      "min": 10,
+      "max": 35,
+      "step": 1,
+      "default": 15
+    },
+    {
+      "type": "header",
+      "content": "Padding"
+    },
+    {
+      "type": "range",
+      "id": "margin-top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 100,
+      "default": 20,
+      "step": 1
+    },
+    {
+      "type": "range",
+      "id": "margin-bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 100,
+      "default": 15,
+      "step": 1
+    }
+  ],
+  "blocks": [
+    {
+      "type": "text",
+      "name": "FAQ Block",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Question",
+          "default": "Enter your question here"
+        },
+        {
+          "type": "text",
+          "id": "answer",
+          "label": "Answer",
+          "default": "Enter your answer here"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Accordion (FAQ)",
+      "category": "FAQ"
+    }
+  ],
+  "max_blocks": 50
+}
+{% endschema %}
