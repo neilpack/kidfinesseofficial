@@ -98,3 +98,60 @@ ul li a{
     -webkit-mask-image: linear-gradient(to bottom, black 0%, black 75%, transparent 100%);
     mask-image: linear-gradient(to bottom, black 0%, black 75%, transparent 100%);
 }
+
+/* ===============================
+   DROPDOWN MENU STYLES
+================================== */
+
+/* 1. Make the parent relative so the dropdown knows where to anchor */
+.dropdown-parent {
+    position: relative;
+    /* Optional: Adds a little invisible height so the menu doesn't disappear if you move the mouse down too fast */
+    padding-bottom: 5px; 
+}
+
+/* 2. Style the hidden dropdown menu */
+.dropdown-menu {
+    position: absolute;
+    top: 100%; /* Puts it exactly below the parent text */
+    left: 50%; /* Starts the box in the middle... */
+    transform: translateX(-50%); /* ...and pulls it back exactly half its width to dead-center it */
+    
+    background-color: rgba(0, 0, 0, 0.95); /* Matches your scrolled header */
+    border: 1px solid #333;
+    border-radius: 4px;
+    min-width: 120px;
+    
+    /* Hides the menu by default */
+    display: none; 
+    flex-direction: column;
+    padding: 0.5rem 0;
+    z-index: 1001;
+}
+
+/* 3. Reveal the menu when hovering over the parent */
+.dropdown-parent:hover .dropdown-menu {
+    display: flex;
+}
+
+.dropdown-parent.mobile-open .dropdown-menu {
+    display: flex;
+}
+
+/* 4. Style the individual dropdown links */
+.dropdown-menu li {
+    text-align: center;
+}
+
+.dropdown-menu li a {
+    display: block; /* Makes the whole box clickable, not just the text */
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem; /* Make dropdown text slightly smaller than main nav */
+    color: white !important; /* Forces it to stay white */
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+/* 5. Add a hover highlight effect for the dropdown items */
+.dropdown-menu li a:hover {
+    background-color: #333;
+}
