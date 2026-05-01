@@ -123,6 +123,7 @@ main div.bar {
     gap: 2rem;
     padding: 2rem;
     flex-wrap: wrap; 
+    margin-bottom: 100px;;
 }
 
 .content-section div section {
@@ -178,6 +179,51 @@ main div.bar {
 .nav-arrow:hover {
     transform: scale(1.15); 
     opacity: 0.8;
+}
+
+/* ===============================
+   STORE SECTION STYLES
+================================== */
+
+.store-grid {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    width: 100%;
+    flex-wrap: wrap; /* Ensures the boxes stack neatly on mobile screens */
+}
+
+/* Temporary styles for the image placeholders */
+.placeholder-box {
+    width: 250px;
+    height: 250px;
+    background-color: #111; /* Dark gray so it stands out against the black body */
+    border: 1px solid #333;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #555;
+}
+
+/* If you drop real <img> tags in later, this ensures they fit the box */
+.placeholder-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Button styling matched perfectly to your #stream-button */
+#merch-button {
+    border: white solid 1px;
+    padding: 0.5rem;
+    border-radius: 4px;
+    font-size: 20px;
+    margin-top: 1rem;
+}
+
+#merch-button:hover {
+    cursor: pointer;
 }
 
 /* ===============================
