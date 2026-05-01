@@ -8,6 +8,11 @@ body {
     background-color: black;
 }
 
+h1, h2, h3, p {
+    color: white;
+    margin: 0;
+}
+
 header {
     position: fixed; /* Locks the header to the screen */
     top: 0;
@@ -97,6 +102,40 @@ ul li a{
     /* Fades out only at the bottom */
     -webkit-mask-image: linear-gradient(to bottom, black 0%, black 75%, transparent 100%);
     mask-image: linear-gradient(to bottom, black 0%, black 75%, transparent 100%);
+}
+
+/* UNDER HERO */
+
+h1 {
+    text-decoration: underline;
+    font-size: 30px;
+}
+
+main div.bar {
+    gap: 150px;
+}
+
+.content-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    padding: 2rem;
+    flex-wrap: wrap; 
+}
+
+.content-section div section {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    gap: 2rem;
+}
+
+.content-section div img{
+    width: 400px;
+    height: auto;
 }
 
 /* ===============================
