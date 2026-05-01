@@ -1,0 +1,62 @@
+<div class="content-section" id="store">
+    <div>
+        <h2>{{ section.settings.section_title | default: 'STORE' }}</h2>
+    </div>
+    
+    <div class="store-grid">
+        {% assign collection = collections[section.settings.collection_handle] %}
+        
+        {% if collection != blank and collection.products_count > 0 %}
+            {% for product in collection.products limit: 3 %}
+                <div style="display: flex; flex-direction: column; align-items: center; gap: 10px;">
+                    <a href="{{ product.url }}" class="placeholder-box" style="text-decoration: none;">
+                        <img src="{{ product.featured_image | image_url: width: 300 }}" alt="{{ product.title | escape }}">
+                    </a>
+                    <p style="color: white; text-align: center; margin: 0; font-size: 1.1rem; text-transform: uppercase;">
+                        {{ product.title }}<br>
+                        {{ product.price | money }}
+                    </p>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="placeholder-box">MERCH 1</div>
+            <div class="placeholder-box">MERCH 2</div>
+            <div class="placeholder-box">MERCH 3</div>
+        {% endif %}
+    </div>
+
+    <a href="{{ collection.url | default: '#store' }}" style="text-decoration: none; color: inherit;">
+        <h2 id="merch-button">{{ section.settings.button_text | default: 'SEE ALL MERCH' }}</h2>
+    </a>
+</div>
+
+{% schema %}
+{
+  "name": "Custom Store",
+  "settings": [
+    {
+      "type": "text",
+      "id": "section_title",
+      "label": "Section Title",
+      "default": "STORE"
+    },
+    {
+      "type": "collection",
+      "id": "collection_handle",
+      "label": "Select Merch Collection"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "SEE ALL MERCH"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Store",
+      "category": "Store"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,39 @@
+<div class="content-section" style="padding: 0; margin-bottom: 0;">
+    <picture>
+        {% if section.settings.mobile_image != blank %}
+            <source media="(max-width: 900px)" srcset="{{ section.settings.mobile_image | image_url: width: 900 }}">
+        {% else %}
+            <source media="(max-width: 900px)" srcset="{{ 'hero_phone.png' | asset_url }}">
+        {% endif %}
+        
+        {% if section.settings.desktop_image != blank %}
+            <img src="{{ section.settings.desktop_image | image_url: width: 2000 }}" alt="{{ section.settings.desktop_image.alt | default: 'KidFinesseOfficial Hero Image' }}" class="hero-image">
+        {% else %}
+            <img src="{{ 'hero.png' | asset_url }}" alt="KidFinesseOfficial Hero Image" class="hero-image">
+        {% endif %}
+    </picture>
+</div>
+
+{% schema %}
+{
+  "name": "Custom Hero",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "desktop_image",
+      "label": "Desktop Hero Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "mobile_image",
+      "label": "Mobile Hero Image"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Hero",
+      "category": "Image"
+    }
+  ]
+}
+{% endschema %}
