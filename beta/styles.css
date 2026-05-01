@@ -282,3 +282,105 @@ main div.bar {
 .dropdown-menu li a:hover {
     background-color: #333;
 }
+
+
+/* ===============================
+   MOBILE RESPONSIVENESS (@media)
+================================== */
+
+@media (max-width: 900px) {
+    
+    /* 1. BODY PREP */
+    body {
+        /* Adds space at the bottom so the new footer doesn't cover your content */
+        padding-bottom: 70px; 
+    }
+
+    /* 2. HEADER & NAVIGATION */
+    header {
+        /* Stack the logo and menu vertically so they don't overlap */
+        flex-direction: column; 
+        justify-content: center;
+        padding: 0.5rem 1rem;
+        gap: 0.5rem;
+    }
+
+    .logo {
+        width: 60px; /* Slightly smaller logo */
+    }
+
+    nav {
+        /* Take the nav out of the absolute center and let it sit under the logo */
+        position: relative;
+        left: 0;
+        transform: none;
+    }
+
+    ul.bar {
+        gap: 1.5rem; /* Slightly tighter gap between menu items */
+    }
+
+    /* 3. THE MAGIC SOCIAL FOOTER */
+    .social-icons {
+        position: fixed; /* Locks it to the screen */
+        bottom: 0;       /* Pushes it to the very bottom */
+        left: 0;
+        width: 100%;
+        
+        background-color: rgba(0, 0, 0, 0.95); /* Matches your scrolled header */
+        border-top: 1px solid #333;
+        
+        /* Center the icons and give them padding */
+        justify-content: center;
+        padding: 1rem 0;
+        margin: 0;
+        z-index: 1000;
+    }
+
+    /* 4. GENERAL CONTENT SIZING */
+    h1 {
+        font-size: 24px; /* Shrink titles */
+    }
+
+    .content-section {
+        padding: 1rem;
+    }
+
+    .hero-image {
+        margin-bottom: 75px;
+    }
+
+    /* 5. MUSIC SECTION FIXES */
+    main div.bar {
+        flex-direction: column; /* Stack the album art and text */
+        gap: 1rem !important;   /* Overrides that massive 150px gap you had */
+    }
+
+    .content-section div section {
+        transform: none; /* Removes the -40px shift you had for desktop */
+        gap: 1rem;
+    }
+
+    .content-section div img {
+        width: 100%; 
+        max-width: 300px; /* Prevents the album cover from getting too massive */
+    }
+
+    /* 6. STORE SECTION FIXES */
+    .store-grid {
+        flex-direction: column; /* Stack the merch boxes vertically */
+        gap: 1.5rem;
+    }
+
+    .placeholder-box {
+        width: 100%;
+        max-width: 300px; /* Matches the album art size */
+    }
+
+    /* 7. CAROUSEL ARROW FIX */
+    /* Prevents the arrows from stretching to 100% width on mobile */
+    .content-section div img.nav-arrow {
+        width: 15px;
+        max-width: 15px;
+    }
+}
