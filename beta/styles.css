@@ -131,11 +131,53 @@ main div.bar {
     flex-direction: column;
     justify-content: center;
     gap: 2rem;
+    transform: translateX(-40px);
 }
 
 .content-section div img{
     width: 400px;
     height: auto;
+}
+
+#stream-button {
+    border: white solid 1px;
+    padding: 0.5rem;
+    border-radius: 4px;
+    font-size: 20px;
+}
+
+#stream-button:hover {
+    cursor: pointer;
+}
+
+/* ===============================
+   MUSIC CAROUSEL STYLES
+================================== */
+
+.carousel-container {
+    display: flex;
+    align-items: center; 
+    justify-content: space-between; 
+    width: 100%;
+    
+    /* Change this from 1000px to something smaller like 800px or 750px */
+    max-width: 750px; 
+    
+    margin: 0 auto;
+    gap: 2rem; 
+}
+
+.nav-arrow {
+    width: 20px; /* Make the arrow smaller here */
+    height: auto;
+    cursor: pointer; 
+    transition: transform 0.2s ease, opacity 0.2s ease;
+    filter: brightness(0) invert(100%); 
+}
+
+.nav-arrow:hover {
+    transform: scale(1.15); 
+    opacity: 0.8;
 }
 
 /* ===============================
