@@ -61,6 +61,14 @@
       </a>
     {%- endif -%}
 
+    {%- if settings.social_soundcloud_link != blank -%}
+            <a href="{{ settings.social_soundcloud_link }}" target="_blank" aria-label="SoundCloud">
+                <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" style="width: 25px; height: auto;">
+                    <path fill="#ffffff" d="M11.17 19c-.24 0-.44-.22-.44-.49V8.66c0-.27.2-.49.44-.49s.44.22.44.49v9.85c0 .27-.2.49-.44.49zm-2.07 0c-.24 0-.44-.22-.44-.49V9.58c0-.27.2-.49.44-.49s.44.22.44.49v8.93c0 .27-.2.49-.44.49zm-2.07 0c-.24 0-.44-.22-.44-.49v-7.8c0-.27.2-.49.44-.49s.44.22.44.49v7.8c0 .27-.2.49-.44.49zm-2.06 0c-.24 0-.44-.22-.44-.49v-6.3c0-.27.2-.49.44-.49s.44.22.44.49v6.3c0 .27-.2.49-.44.49zm-2.06 0c-.24 0-.44-.22-.44-.49v-4.6c0-.27.2-.49.44-.49s.44.22.44.49v4.6c0 .27-.2.49-.44.49zm-2.07 0c-.24 0-.44-.22-.44-.49v-2.8c0-.27.2-.49.44-.49s.44.22.44.49v2.8c0 .27-.2.49-.44.49zM.83 19c-.24 0-.44-.22-.44-.49v-.95c0-.27.2-.49.44-.49s.44.22.44.49v.95c0 .27-.2.49-.44.49zm23.17-5.46c0-3.06-2.48-5.54-5.54-5.54-.42 0-.84.05-1.23.14-.8-2.61-3.23-4.52-6.13-4.52-1 0-1.95.23-2.81.64v14.74h15.71z"/>
+                </svg>
+            </a>
+        {%- endif -%}
+
     {%- if settings.social_youtube_link != blank -%}
       <a href="{{ settings.social_youtube_link }}" target="_blank" aria-label="YouTube">
         <svg aria-hidden="true" focusable="false" class="icon icon-youtube" viewBox="0 0 20 20" style="width: 25px; height: auto;">
