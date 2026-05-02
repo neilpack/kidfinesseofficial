@@ -1,1 +1,145 @@
-{"current":{"favicon":"shopify:\/\/shop_images\/favicon-32x32.png","type_header_font":"archivo_narrow_n7","type_body_font":"helvetica_n3","font_transform":"uppercase","font_transform_body":"standart","enable_custom_headings_font":false,"custom_heading_font":"","enable_custom_body_font":false,"custom_body_font":"","product_list-info":"Show","collection-title":"Hide","product_list-pc":"Two","product_list":"One","product_card_size":"Square","enable_infinity_scroll":true,"body-background":"color","body-background-color":"#ffffff","bg-overlay":0,"headings-color":"#000000","body-color":"#000000","header-menu":"#000000","submenu-color":"#000000","submenu-bg":"#000000","header-menu-mobile":"#000000","header-menu-mobile-background":"#ffffff","cart-drawer-bg":"#ffffff","cart-drawer-text":"#000000","button-color":"#ffffff","button-bg":"#000000","input-color":"#000000","input-bg":"rgba(0,0,0,0)","image-switches":"black","product_dot_bg":"#ffffff","product_dot_active":"#000000","slider_background":"#dadada","slider_color":"#000000","enable-pageloader":"off","preloader-text-color":"#000000","pageloader-logo-size":230,"pageloader-logo-size-mobile":120,"pageloader-bg":"#ffffff","enable_audio_player":false,"audio_file_url":"","audio_player_color":"#000000","product_desc_size_pc":12,"product_desc_line_height_pc":1.4,"product_desc_size_mobile":13,"product_desc_line_height_mobile":1.6,"cart-type":"drawer","enable-header-overlay":true,"header-overlay-menu-color":"#ffffff","header-overlay-logo":"shopify:\/\/shop_images\/KF_Transparent.png","social_facebook_link":"","social_instagram_link":"","social_youtube_link":"","social_tiktok_link":"","social_twitter_link":"","social_snapchat_link":"","social_pinterest_link":"","social_tumblr_link":"","social_vimeo_link":"","eyecey-copy":true,"enable-preloader":false,"checkout_accent_color":"#000000","checkout_button_color":"#000000","sections":{"featured-collection":{"type":"featured-collection","settings":{"collection_handle":"","products_per_page":10}},"header":{"type":"header","settings":{"logo":"shopify:\/\/shop_images\/KF_NEW.png","logo-size":75,"logo-size-mobile":60,"enable_announcement":false,"announcement_text":"Announce something here","announcement-background":"#ffffff","announcement-color":"#ffffff","announcement_link":"","announcement_text_style":"heading","an_text_size_pc":15,"an_text_size_mobile":15}},"footer":{"type":"footer","settings":{"footer_display":"policies","footer_menu":"footer","nav_size_pc":20,"nav_size_mobile":16,"enable-payment-icons":false,"payment-color":"in-color","enable-social-icons":true,"enable_site_copyright":true,"enable_eyecey_copyright":true,"enable_big_logo":false,"margin-top":17,"margin-bottom":0}},"related-products":{"type":"related-products","settings":{"related_show":true}},"enterpage":{"type":"enterpage","settings":{"enable_enter_page":false,"logo-size":305,"logo-size-mobile":195,"logo-margin":50,"menu":"main-menu","text-capitalize":"capitalize","menu-size-pc":19,"menu-size-mobile":17,"menu-padding":7,"menu-color":"#000000","show-numbering":true,"menu-font":"body","alignment":"left","enter-background":"color","enter-background-color":"#ffffff","enter-background-gradient":"","bg-overlay":65}}},"content_for_index":[],"blocks":{"17898749149128914962":{"type":"shopify:\/\/apps\/sharethis-share-buttons\/blocks\/app-embed\/b99b50a4-807c-4fe0-a03f-4a46b8c063cb","disabled":false,"settings":{}},"6584037165345061981":{"type":"shopify:\/\/apps\/vicify-preorder-and-presale\/blocks\/block\/3a0c6224-bb5f-496e-8d39-b1f8c7a11010","disabled":false,"settings":{}},"18411043321589999057":{"type":"shopify:\/\/apps\/rt-disable-right-click\/blocks\/app-embed\/1a6da957-7246-46b1-9660-2fac7e573a37","disabled":false,"settings":{}}}}}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "current": {
+    "favicon": "shopify://shop_images/favicon-32x32.png",
+    "type_header_font": "archivo_narrow_n7",
+    "type_body_font": "serif",
+    "font_transform": "uppercase",
+    "font_transform_body": "standart",
+    "enable_custom_headings_font": false,
+    "custom_heading_font": "",
+    "enable_custom_body_font": false,
+    "custom_body_font": "",
+    "product_list-info": "Show",
+    "collection-title": "Hide",
+    "product_list-pc": "Two",
+    "product_list": "One",
+    "product_card_size": "Square",
+    "enable_infinity_scroll": true,
+    "body-background": "color",
+    "body-background-color": "#000000",
+    "bg-overlay": 0,
+    "headings-color": "#000000",
+    "body-color": "#000000",
+    "header-menu": "#000000",
+    "submenu-color": "#000000",
+    "submenu-bg": "#000000",
+    "header-menu-mobile": "#000000",
+    "header-menu-mobile-background": "#ffffff",
+    "cart-drawer-bg": "#ffffff",
+    "cart-drawer-text": "#000000",
+    "button-color": "#ffffff",
+    "button-bg": "#000000",
+    "input-color": "#000000",
+    "input-bg": "rgba(0,0,0,0)",
+    "image-switches": "black",
+    "product_dot_bg": "#ffffff",
+    "product_dot_active": "#000000",
+    "slider_background": "#dadada",
+    "slider_color": "#000000",
+    "enable-pageloader": "off",
+    "preloader-text-color": "#000000",
+    "pageloader-logo-size": 230,
+    "pageloader-logo-size-mobile": 120,
+    "pageloader-bg": "#ffffff",
+    "enable_audio_player": false,
+    "audio_file_url": "",
+    "audio_player_color": "#000000",
+    "product_desc_size_pc": 12,
+    "product_desc_line_height_pc": 1.4,
+    "product_desc_size_mobile": 13,
+    "product_desc_line_height_mobile": 1.6,
+    "cart-type": "drawer",
+    "enable-header-overlay": false,
+    "header-overlay-menu-color": "#000000",
+    "header-overlay-logo": "shopify://shop_images/KF_Transparent.png",
+    "social_facebook_link": "",
+    "social_instagram_link": "https://www.instagram.com/realkidfinesse",
+    "social_youtube_link": "https://www.youtube.com/channel/UCVq9H4ivzS3QclBlGmgfDbg",
+    "social_tiktok_link": "https://www.tiktok.com/@realkidfinesse",
+    "social_twitter_link": "",
+    "social_snapchat_link": "",
+    "social_pinterest_link": "",
+    "social_tumblr_link": "",
+    "social_vimeo_link": "",
+    "social_twitch_link": "https://www.twitch.tv/realkidfinesse",
+    "social_spotify_link": "https://open.spotify.com/artist/3jnZEy2wq3tgafWw3YhD9R",
+    "social_apple_link": "https://music.apple.com/us/artist/kid-finesse/1482469604",
+    "social_soundcloud_link": "https://soundcloud.com/realkidfinesse",
+    "eyecey-copy": true,
+    "enable-preloader": false,
+    "checkout_accent_color": "#000000",
+    "checkout_button_color": "#000000",
+    "sections": {
+      "featured-collection": {
+        "type": "featured-collection",
+        "settings": {
+          "collection_handle": "",
+          "products_per_page": 10
+        }
+      },
+      "header": {
+        "type": "header",
+        "settings": {
+          "logo": "shopify://shop_images/KF_NEW.png",
+          "menu": "main-menu"
+        }
+      },
+      "related-products": {
+        "type": "related-products",
+        "settings": {
+          "related_show": true
+        }
+      },
+      "enterpage": {
+        "type": "enterpage",
+        "settings": {
+          "enable_enter_page": false,
+          "logo": "shopify://shop_images/KF_NEW.png",
+          "logo-size": 305,
+          "logo-size-mobile": 195,
+          "logo-margin": 50,
+          "menu": "main-menu",
+          "text-capitalize": "capitalize",
+          "menu-size-pc": 19,
+          "menu-size-mobile": 17,
+          "menu-padding": 7,
+          "menu-color": "#000000",
+          "show-numbering": true,
+          "menu-font": "body",
+          "alignment": "left",
+          "enter-background": "color",
+          "enter-background-color": "#ffffff",
+          "enter-background-gradient": "",
+          "bg-overlay": 65
+        }
+      }
+    },
+    "content_for_index": [],
+    "blocks": {
+      "17898749149128914962": {
+        "type": "shopify://apps/sharethis-share-buttons/blocks/app-embed/b99b50a4-807c-4fe0-a03f-4a46b8c063cb",
+        "disabled": false,
+        "settings": {}
+      },
+      "6584037165345061981": {
+        "type": "shopify://apps/vicify-preorder-and-presale/blocks/block/3a0c6224-bb5f-496e-8d39-b1f8c7a11010",
+        "disabled": false,
+        "settings": {}
+      },
+      "18411043321589999057": {
+        "type": "shopify://apps/rt-disable-right-click/blocks/app-embed/1a6da957-7246-46b1-9660-2fac7e573a37",
+        "disabled": false,
+        "settings": {}
+      }
+    }
+  }
+}
