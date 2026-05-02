@@ -1,9 +1,11 @@
 <style>
+/* 1. AGGRESSIVELY TARGET THE "CONTACT" TITLE */
 h1, 
 .page-width h1, 
 .main-page-title, 
 .title {
-  padding-top: 140px !important; /* Pushes the text down below the fixed header */
+  padding-top: 100px !important; /* Reduced from 140px to pull everything higher up */
+  margin-bottom: 10px !important; /* Keeps the title tight to the input boxes */
   color: #ffffff !important; 
   text-align: center !important;
   font-family: var(--font-heading-family) !important;
@@ -15,8 +17,9 @@ h1,
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 0px 0 40px 0; 
-  margin-top: -20px; /* Pulls the form up slightly closer to the title */
+  padding: 10px 0 60px 0; 
+  margin-top: 0px; 
+  min-height: 50vh; /* This magically helps center the form in the middle of the screen! */
 }
 
 #contact_form input, #contact_form textarea {
