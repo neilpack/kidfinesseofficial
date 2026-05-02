@@ -10,7 +10,7 @@
 {
   "current": {
     "favicon": "shopify://shop_images/favicon-32x32.png",
-    "type_header_font": "archivo_narrow_n7",
+    "type_header_font": "serif",
     "type_body_font": "serif",
     "font_transform": "uppercase",
     "font_transform_body": "standart",
