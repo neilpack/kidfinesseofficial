@@ -43,11 +43,21 @@
         "margin_top": 20,
         "margin_bottom": 20
       }
+    },
+    "custom_store_rPDQkX": {
+      "type": "custom-store",
+      "name": "Custom Store",
+      "settings": {
+        "section_title": "STORE",
+        "collection_handle": "frontpage",
+        "button_text": "SEE ALL MERCH"
+      }
     }
   },
   "order": [
     "custom_hero_mFhBUm",
     "custom_music_gQJGgC",
-    "apple_music_JHp6DF"
+    "apple_music_JHp6DF",
+    "custom_store_rPDQkX"
   ]
 }
