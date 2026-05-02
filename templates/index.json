@@ -31,20 +31,9 @@
         "stream_link": "https://open.spotify.com/album/3kkgnce07RxrDSPRy9covD"
       }
     },
-    "spotify_z8TDDm": {
-      "type": "spotify",
-      "name": "Spotify Embed",
-      "settings": {
-        "heading": "",
-        "description": "",
-        "heading_size": "m",
-        "embed_code": "<iframe data-testid=\"embed-iframe\" style=\"border-radius:12px\" src=\"https://open.spotify.com/embed/artist/3jnZEy2wq3tgafWw3YhD9R?utm_source=generator\" width=\"100%\" height=\"750\" frameborder=\"0\" allowfullscreen=\"\" allow=\"autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture\" loading=\"lazy\"></iframe>",
-        "margin_top": 20,
-        "margin_bottom": 20
-      }
-    },
     "apple_music_JHp6DF": {
       "type": "apple-music",
+      "disabled": true,
       "name": "Apple Music Embed",
       "settings": {
         "heading": "",
@@ -59,7 +48,6 @@
   "order": [
     "custom_hero_mFhBUm",
     "custom_music_gQJGgC",
-    "spotify_z8TDDm",
     "apple_music_JHp6DF"
   ]
 }
