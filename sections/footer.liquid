@@ -107,6 +107,11 @@
   }
 
   @media (max-width: 900px) {
+    /* Hide the old desktop footer completely on mobile */
+    .desktop-footer-content {
+      display: none !important;
+    }
+
     .mobile-fixed-socials {
       display: flex;
       flex-direction: column;
@@ -117,16 +122,16 @@
       width: 100%;
       background-color: rgba(0, 0, 0, 0.95);
       border-top: 1px solid #333;
-      padding: 1rem 0 0.5rem 0; /* Adjusted padding to fit the text */
+      padding: 1rem 0 0.5rem 0;
       margin: 0;
       z-index: 1000;
-      gap: 0.5rem; /* Space between icons row and text */
+      gap: 0.5rem;
     }
     
     .mobile-social-icons-row {
       display: flex;
       justify-content: center;
-      gap: 1.5rem; /* Spaced out nicely for thumbs */
+      gap: 1.5rem;
     }
 
     .mobile-footer-text {
@@ -141,60 +146,60 @@
       text-decoration: none;
     }
     
-    /* Push the original footer up slightly so it isn't hidden behind the fixed bar */
+    /* Adds padding to the bottom of the page so content isn't covered by the absolute footer */
     #shopify-section-footer {
       padding-bottom: 90px !important;
     }
   }
 </style>
 
-<div class="page-width footer-info">
-  <div class="footer-nav">
-    {% if section.settings.footer_display == 'menu' %}
-      {% for link in linklists[section.settings.footer_menu].links %}
-        <a href="{{ link.url }}">{{ link.title }}</a>
-      {% endfor %}
-    {% elsif section.settings.footer_display == 'policies' %}
-      <div class="policies footer-nav">
-        {%- for policy in shop.policies -%}
-          {%- if policy != blank -%}
-                <a href="{{ policy.url }}">{{ policy.title }}</a>
-          {%- endif -%}
-        {%- endfor -%}
-      </div>
+<div class="desktop-footer-content">
+  <div class="page-width footer-info">
+    <div class="footer-nav">
+      {% if section.settings.footer_display == 'menu' %}
+        {% for link in linklists[section.settings.footer_menu].links %}
+          <a href="{{ link.url }}">{{ link.title }}</a>
+        {% endfor %}
+      {% elsif section.settings.footer_display == 'policies' %}
+        <div class="policies footer-nav">
+          {%- for policy in shop.policies -%}
+            {%- if policy != blank -%}
+                  <a href="{{ policy.url }}">{{ policy.title }}</a>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      {% endif %}
+    </div>
+
+    {% if section.settings.enable-social-icons %}
+      {% render 'social-icons' %}
     {% endif %}
   </div>
 
-  {% if section.settings.enable-social-icons %}
-    {% render 'social-icons' %}
+  {% if section.settings.enable-payment-icons %}
+    <div class="footer__payment">
+      <ul class="list list-payment" role="list">
+        {%- for type in shop.enabled_payment_types -%}
+          <li class="list-payment__item">
+            {{ type | payment_type_svg_tag: class: 'icon icon--full-color' }}
+          </li>
+        {%- endfor -%}
+      </ul>
+    </div>
   {% endif %}
-</div>
 
-{% if section.settings.enable-payment-icons %}
-  <div class="footer__payment">
-    <ul class="list list-payment" role="list">
-      {%- for type in shop.enabled_payment_types -%}
-        <li class="list-payment__item">
-          {{ type | payment_type_svg_tag: class: 'icon icon--full-color' }}
-        </li>
-      {%- endfor -%}
-    </ul>
+  <div class="copyright" style="text-align: center; margin-top: 20px;">
+    <small style="margin: 9px 0;" class="copyright__content site-copy">
+       <a href="/policies/privacy-policy" style="text-decoration: none; color: inherit;">Privacy Policy</a> &copy; {{ 'now' | date: '%Y' }}, KIDFINESSEOFFICIAL
+    </small>
   </div>
-{% endif %}
 
-<div class="copyright" style="text-align: center; margin-top: 20px;">
-  <small style="margin: 9px 0;" class="copyright__content site-copy">
-     <a href="/policies/privacy-policy" style="text-decoration: none; color: inherit;">Privacy Policy</a> &copy; {{ 'now' | date: '%Y' }}, KIDFINESSEOFFICIAL
-  </small>
-</div>
-
-{% if section.settings.enable_big_logo %}
-<div class="page-width footer__big-logo">
-  <img style="width: 100%; vertical-align: top;" src="{% if section.settings.big_logo_img != blank %} {{ section.settings.big_logo_img | img_url: 'master' }} {% else %} {{ 'brandname.svg' | asset_url | image_url: 'master' }} {% endif %}">
-</div>
-{% endif %}
-
-<div class="mobile-fixed-socials">
+  {% if section.settings.enable_big_logo %}
+  <div class="page-width footer__big-logo">
+    <img style="width: 100%; vertical-align: top;" src="{% if section.settings.big_logo_img != blank %} {{ section.settings.big_logo_img | img_url: 'master' }} {% else %} {{ 'brandname.svg' | asset_url | image_url: 'master' }} {% endif %}">
+  </div>
+  {% endif %}
+</div> <div class="mobile-fixed-socials">
     <div class="mobile-social-icons-row">
         {%- if settings.social_tiktok_link != blank -%}
             <a href="{{ settings.social_tiktok_link }}" target="_blank" aria-label="TikTok">
