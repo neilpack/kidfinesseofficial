@@ -12,17 +12,18 @@
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    gap: 6rem !important; /* Massively increased the gap to spread them left/right */
+    gap: 6rem !important; 
     padding: 0 1rem;
+    align-items: flex-start; /* Forces all items to align to the top */
   }
 
   /* Keep the boxes perfectly square */
   #shopify-section-{{ section.id }} .placeholder-box {
     width: 250px !important; 
     height: 250px !important; 
-    display: block; /* Ensures the link behaves like a solid box */
-    overflow: hidden; /* Clips any image bleed */
-    border: 1px solid #333; /* Keeps your original dark border */
+    display: block; 
+    overflow: hidden; 
+    border: 1px solid #333; 
     background-color: #111;
   }
 
@@ -30,7 +31,7 @@
   #shopify-section-{{ section.id }} .placeholder-box img {
     width: 100% !important;
     height: 100% !important;
-    object-fit: cover !important; /* This stops the images from stretching or looking weird */
+    object-fit: cover !important; 
     object-position: center !important;
   }
 
@@ -55,6 +56,7 @@
     #shopify-section-{{ section.id }} .store-grid {
       gap: 3rem !important; 
       flex-direction: column;
+      align-items: center; /* Re-center items on mobile */
     }
   }
 </style>
@@ -78,7 +80,8 @@
                         {{ product.title }}<br>
                         
                         {% if product.available %}
-                            {{ product.price | money }}
+                            {{ product.price | money }}<br>
+                            <span style="visibility: hidden; font-size: 0.9rem; letter-spacing: 1px;">SPACE</span>
                         {% else %}
                             <span style="text-decoration: line-through; opacity: 0.7;">{{ product.price | money }}</span><br>
                             <span style="color: #cccccc; font-size: 0.9rem; letter-spacing: 1px;">SOLD OUT</span>
