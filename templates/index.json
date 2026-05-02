@@ -49,7 +49,7 @@
       "name": "Custom Store",
       "settings": {
         "section_title": "STORE",
-        "collection_handle": "",
+        "collection_handle": "frontpage",
         "button_text": "SEE ALL MERCH"
       }
     }
