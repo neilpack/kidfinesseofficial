@@ -9,16 +9,26 @@
  */
 {
   "sections": {
-    "apple_music_JHp6DF": {
-      "type": "apple-music",
-      "name": "Apple Music Embed",
+    "custom_hero_mFhBUm": {
+      "type": "custom-hero",
+      "name": "Custom Hero",
       "settings": {
-        "heading": "",
-        "description": "",
-        "heading_size": "m",
-        "embed_code": "<iframe allow=\"autoplay *; encrypted-media *; fullscreen *; clipboard-write\" frameborder=\"0\" height=\"650\" style=\"width:100%;max-width:860px;overflow:hidden;border-radius:10px;\" sandbox=\"allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation\" src=\"https://embed.music.apple.com/us/album/my-summertime-roster/1846735624\"></iframe>",
-        "margin_top": 20,
-        "margin_bottom": 20
+        "desktop_image": "shopify://shop_images/hero.png",
+        "mobile_image": "shopify://shop_images/hero_phone.png"
+      }
+    },
+    "custom_music_gQJGgC": {
+      "type": "custom-music",
+      "custom_css": [
+        "h2 {color: white;}"
+      ],
+      "name": "Custom Music",
+      "settings": {
+        "section_title": "MUSIC",
+        "spotify_embed": "<iframe data-testid=\"embed-iframe\" style=\"border-radius:12px\" src=\"https://open.spotify.com/embed/artist/3jnZEy2wq3tgafWw3YhD9R?utm_source=generator\" width=\"100%\" height=\"750\" frameborder=\"0\" allowfullscreen=\"\" allow=\"autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture\" loading=\"lazy\"></iframe>",
+        "album_image": "shopify://shop_images/album.jpg",
+        "album_title": "Seth",
+        "stream_link": "https://open.spotify.com/album/3kkgnce07RxrDSPRy9covD"
       }
     },
     "spotify_z8TDDm": {
@@ -33,18 +43,23 @@
         "margin_bottom": 20
       }
     },
-    "custom_hero_mFhBUm": {
-      "type": "custom-hero",
-      "name": "Custom Hero",
+    "apple_music_JHp6DF": {
+      "type": "apple-music",
+      "name": "Apple Music Embed",
       "settings": {
-        "desktop_image": "shopify://shop_images/hero.png",
-        "mobile_image": "shopify://shop_images/hero_phone.png"
+        "heading": "",
+        "description": "",
+        "heading_size": "m",
+        "embed_code": "<iframe allow=\"autoplay *; encrypted-media *; fullscreen *; clipboard-write\" frameborder=\"0\" height=\"650\" style=\"width:100%;max-width:860px;overflow:hidden;border-radius:10px;\" sandbox=\"allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation\" src=\"https://embed.music.apple.com/us/album/my-summertime-roster/1846735624\"></iframe>",
+        "margin_top": 20,
+        "margin_bottom": 20
       }
     }
   },
   "order": [
     "custom_hero_mFhBUm",
-    "apple_music_JHp6DF",
-    "spotify_z8TDDm"
+    "custom_music_gQJGgC",
+    "spotify_z8TDDm",
+    "apple_music_JHp6DF"
   ]
 }
