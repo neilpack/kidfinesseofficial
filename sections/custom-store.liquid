@@ -7,15 +7,31 @@
     font-family: var(--font-heading-family) !important;
   }
 
-  /* Spread the grid items further apart */
+  /* Spread the grid items further apart left and right */
   #shopify-section-{{ section.id }} .store-grid {
-    gap: 4rem !important; /* Increased from 2rem to spread them out */
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 6rem !important; /* Massively increased the gap to spread them left/right */
+    padding: 0 1rem;
   }
 
-  /* Make the images a little smaller */
+  /* Keep the boxes perfectly square */
   #shopify-section-{{ section.id }} .placeholder-box {
-    width: 200px !important; /* Shrunk from 250px */
-    height: 200px !important; /* Shrunk from 250px */
+    width: 250px !important; 
+    height: 250px !important; 
+    display: block; /* Ensures the link behaves like a solid box */
+    overflow: hidden; /* Clips any image bleed */
+    border: 1px solid #333; /* Keeps your original dark border */
+    background-color: #111;
+  }
+
+  /* Force real product images to crop perfectly into the square */
+  #shopify-section-{{ section.id }} .placeholder-box img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important; /* This stops the images from stretching or looking weird */
+    object-position: center !important;
   }
 
   /* Stream/Merch button specific styles */
@@ -33,6 +49,14 @@
     background-color: #ffffff;
     color: #000000 !important; 
   }
+
+  /* Mobile adjustments so the gap isn't too huge on phones */
+  @media (max-width: 900px) {
+    #shopify-section-{{ section.id }} .store-grid {
+      gap: 3rem !important; 
+      flex-direction: column;
+    }
+  }
 </style>
 
 <div class="content-section" id="store">
@@ -45,9 +69,9 @@
         
         {% if collection != blank and collection.products_count > 0 %}
             {% for product in collection.products limit: 3 %}
-                <div style="display: flex; flex-direction: column; align-items: center; gap: 12px;">
+                <div style="display: flex; flex-direction: column; align-items: center; gap: 15px;">
                     <a href="{{ product.url }}" class="placeholder-box" style="text-decoration: none;">
-                        <img src="{{ product.featured_image | image_url: width: 300 }}" alt="{{ product.title | escape }}">
+                        <img src="{{ product.featured_image | img_url: '600x600', crop: 'center' }}" alt="{{ product.title | escape }}">
                     </a>
                     
                     <p style="color: white; text-align: center; margin: 0; font-size: 1.1rem; text-transform: uppercase; line-height: 1.4;">
@@ -63,9 +87,9 @@
                 </div>
             {% endfor %}
         {% else %}
-            <div class="placeholder-box">MERCH 1</div>
-            <div class="placeholder-box">MERCH 2</div>
-            <div class="placeholder-box">MERCH 3</div>
+            <div class="placeholder-box" style="display: flex; align-items: center; justify-content: center; color: #555;">MERCH 1</div>
+            <div class="placeholder-box" style="display: flex; align-items: center; justify-content: center; color: #555;">MERCH 2</div>
+            <div class="placeholder-box" style="display: flex; align-items: center; justify-content: center; color: #555;">MERCH 3</div>
         {% endif %}
     </div>
 
