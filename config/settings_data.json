@@ -130,7 +130,7 @@
           "nav_size_mobile": 16,
           "enable-payment-icons": false,
           "payment-color": "monochrome",
-          "enable-social-icons": true,
+          "enable-social-icons": false,
           "enable_site_copyright": true,
           "enable_eyecey_copyright": false,
           "enable_big_logo": false,
