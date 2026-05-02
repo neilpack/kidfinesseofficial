@@ -62,14 +62,15 @@
     "header-overlay-menu-color": "#000000",
     "header-overlay-logo": "shopify://shop_images/KF_Transparent.png",
     "social_facebook_link": "",
-    "social_instagram_link": "",
-    "social_youtube_link": "",
-    "social_tiktok_link": "",
+    "social_instagram_link": "https://www.instagram.com/realkidfinesse",
+    "social_youtube_link": "https://www.youtube.com/channel/UCVq9H4ivzS3QclBlGmgfDbg",
+    "social_tiktok_link": "https://www.tiktok.com/@realkidfinesse",
     "social_twitter_link": "",
     "social_snapchat_link": "",
     "social_pinterest_link": "",
     "social_tumblr_link": "",
     "social_vimeo_link": "",
+    "social_twitch_link": "https://www.twitch.tv/realkidfinesse",
     "social_spotify_link": "https://open.spotify.com/artist/3jnZEy2wq3tgafWw3YhD9R",
     "social_apple_link": "https://music.apple.com/us/artist/kid-finesse/1482469604",
     "social_soundcloud_link": "https://soundcloud.com/realkidfinesse",
@@ -88,7 +89,8 @@
       "header": {
         "type": "header",
         "settings": {
-          "logo": "shopify://shop_images/KF_NEW.png"
+          "logo": "shopify://shop_images/KF_NEW.png",
+          "menu": "main-menu"
         }
       },
       "related-products": {
