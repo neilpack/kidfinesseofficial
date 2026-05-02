@@ -1,57 +1,130 @@
 <style>
-  /* 1. Force Titles to be White and use your New York Font */
-  #shopify-section-{{ section.id }} h1,
-  #shopify-section-{{ section.id }} h2 {
-    color: #ffffff !important;
-    font-family: var(--font-heading-family) !important;
-  }
+.contact-form-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 0; /* Gives the form some breathing room */
+}
 
-  /* 2. Force Labels and standard text to be white */
-  #shopify-section-{{ section.id }} label,
-  #shopify-section-{{ section.id }} p {
-    color: #cccccc !important; /* Slightly off-white so it doesn't clash with the title */
-  }
+#contact_form input, #contact_form textarea {
+  padding: 7px 10px;
+  font-size: 15px;
+  margin-bottom: 10px;
+  width: 280px;
+  max-width: 100%;
+  border: 1px solid #ffffff; /* White border so they pop out */
+  background-color: transparent; /* Keeps the background black */
+  color: #ffffff; /* White text when the user types */
+  border-radius: 2px;
+  font-family: var(--font-heading-family);
+}
 
-  /* 3. Make the Input Boxes Pop against the black background */
-  #shopify-section-{{ section.id }} input,
-  #shopify-section-{{ section.id }} textarea,
-  #shopify-section-{{ section.id }} .field__input {
-    background-color: #1a1a1a !important; /* Dark grey so it stands out */
-    color: #ffffff !important; /* Bright white text when someone is typing */
-    border: 1px solid #555555 !important; /* Clean visible border */
-    border-radius: 4px !important;
-    box-shadow: none !important;
-  }
+/* Makes the placeholder text (Name, Email, etc.) light grey so it is readable */
+#contact_form input::placeholder, #contact_form textarea::placeholder {
+  color: #cccccc;
+}
 
-  /* 4. Add a cool highlight effect when someone clicks inside a box */
-  #shopify-section-{{ section.id }} input:focus,
-  #shopify-section-{{ section.id }} textarea:focus,
-  #shopify-section-{{ section.id }} .field__input:focus {
-    border: 1px solid #ffffff !important; /* Border turns bright white */
-    background-color: #000000 !important; /* Background fades to black */
-    outline: none !important;
-  }
+/* Subtle glow effect when clicking into a box */
+#contact_form input:focus, #contact_form textarea:focus {
+  outline: none;
+  background-color: #111111;
+  border-color: #aaaaaa;
+}
 
-  /* 5. Style the Submit Button so it demands attention */
-  #shopify-section-{{ section.id }} button,
-  #shopify-section-{{ section.id }} .button,
-  #shopify-section-{{ section.id }} .contact__button .button {
-    background-color: #ffffff !important;
-    color: #000000 !important;
-    border: 1px solid #ffffff !important;
-    border-radius: 4px !important;
-    font-size: 18px !important;
-    font-family: var(--font-heading-family) !important;
-    text-transform: uppercase !important;
-    transition: all 0.3s ease !important;
-    cursor: pointer;
-  }
+#contact-button input {
+  background-color: #ffffff; /* Solid white button */
+  color: #000000; /* Black text */
+  text-transform: uppercase;
+  font-family: var(--font-heading-family);
+  font-weight: bold;
+  padding: 13px;
+  border: 1px solid #ffffff;
+  cursor: pointer;
+  width: 100%; /* Makes button match input width */
+  transition: all 0.3s ease;
+}
 
-  /* 6. Button Hover Effect */
-  #shopify-section-{{ section.id }} button:hover,
-  #shopify-section-{{ section.id }} .button:hover,
-  #shopify-section-{{ section.id }} .contact__button .button:hover {
-    background-color: #000000 !important;
-    color: #ffffff !important;
+/* Button inverts colors when hovered over */
+#contact-button input:hover {
+  background-color: #000000;
+  color: #ffffff;
+}
+
+@media screen and (min-width: 749px){
+  #contact_form input, #contact_form textarea {
+    padding: 10px 10px;
+    font-size: 15px;
+    margin-bottom: 15px;
+    width: 350px;
   }
+}
 </style>
+
+<div class="page-width">
+<section class="contact-form-section">
+  <form method="post" action="/contact#contact_form" id="contact_form" accept-charset="UTF-8" class="contact-form">
+    <input type="hidden" name="form_type" value="contact">
+    <input type="hidden" name="utf8" value="✓">
+
+
+    <div class="form-field">
+      <input type="text" class="input-class" id="ContactFormName" name="contact[name]" placeholder="Name" required>
+    </div>
+
+
+    <div class="form-field">
+      <input type="tel" class="input-class" id="ContactFormPhone" name="contact[phone]" placeholder="Phone Number">
+    </div>
+
+
+    <div class="form-field">
+      <input type="email" class="input-class" id="ContactFormEmail" name="contact[email]" placeholder="Email" required>
+    </div>
+
+    <div class="form-field">
+      <textarea id="ContactFormMessage" class="input-class" name="contact[body]" placeholder="Message" rows="10" required></textarea>
+    </div>
+
+    <div class="form-field" id="contact-button">
+      <input class="button" type="submit" value="Send">
+    </div>
+<div id="contactFormMessageContainer" style="display: none; margin-top: 15px; text-align: center; font-family: var(--font-heading-family);"></div>
+
+  </form>
+  <script>
+document.addEventListener("DOMContentLoaded", function() {
+  const contactForm = document.querySelector(".contact-form");
+
+  contactForm.addEventListener("submit", function(e) {
+    const phoneNumber = document.getElementById("ContactFormPhone").value;
+    const messageContainer = document.createElement("div");
+
+    if (!phoneNumber.startsWith("+")) {
+      e.preventDefault(); // Остановить отправку формы
+      alert("Please include a '+' sign in your phone number.");
+      return false;
+    }
+
+function showMessage() {
+  const messageContainer = document.getElementById("contactFormMessageContainer");
+  messageContainer.textContent = "SENT, WE WILL CONTACT YOU";
+  messageContainer.style.color = "#4CAF50"; /* Slightly brighter green for dark background */
+  messageContainer.style.display = "block"; 
+}
+
+
+    e.preventDefault(); 
+    setTimeout(showMessage, 500); 
+  });
+});
+</script>
+
+</section>
+</div>
+
+{% schema %}
+  {
+    "name": "Contact Form",
+    "settings": []
+  }
+{% endschema %}
