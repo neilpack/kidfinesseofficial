@@ -27,7 +27,7 @@
     "body-background": "color",
     "body-background-color": "#000000",
     "bg-overlay": 0,
-    "headings-color": "#000000",
+    "headings-color": "#ffffff",
     "body-color": "#000000",
     "header-menu": "#000000",
     "submenu-color": "#000000",
@@ -89,7 +89,6 @@
       "header": {
         "type": "header",
         "settings": {
-          "logo": "shopify://shop_images/KF_NEW.png",
           "menu": "main-menu"
         }
       },
@@ -120,6 +119,23 @@
           "enter-background-color": "#ffffff",
           "enter-background-gradient": "",
           "bg-overlay": 65
+        }
+      },
+      "footer": {
+        "type": "footer",
+        "settings": {
+          "footer_display": "menu",
+          "footer_menu": "",
+          "nav_size_pc": 15,
+          "nav_size_mobile": 16,
+          "enable-payment-icons": false,
+          "payment-color": "monochrome",
+          "enable-social-icons": true,
+          "enable_site_copyright": true,
+          "enable_eyecey_copyright": false,
+          "enable_big_logo": false,
+          "margin-top": 30,
+          "margin-bottom": 15
         }
       }
     },
