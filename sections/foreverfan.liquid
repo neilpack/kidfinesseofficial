@@ -1,0 +1,103 @@
+<style>
+  /* Scoped styles using section.id to prevent global CSS conflicts */
+  .foreverfan-wrapper-{{ section.id }} {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 800px;
+    margin: {{ section.settings.margin_top }}px auto {{ section.settings.margin_bottom }}px auto;
+    padding: 0 20px;
+    text-align: center;
+  }
+
+  .foreverfan-heading-{{ section.id }} {
+    margin-bottom: 24px;
+    font-size: 32px;
+    text-transform: uppercase;
+    /* Inherit global theme heading font if available */
+    font-family: var(--font-heading-family), sans-serif; 
+  }
+
+  .foreverfan-embed-container-{{ section.id }} {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  .foreverfan-embed-container-{{ section.id }} iframe {
+    width: 100%;
+    max-width: 600px; /* Keeps the iframe from stretching too wide on desktop */
+    height: {{ section.settings.iframe_height }}px;
+    border: none;
+    border-radius: 8px; /* Slight rounding to match modern app embeds */
+  }
+</style>
+
+<div class="foreverfan-wrapper-{{ section.id }}">
+  {% if section.settings.heading != blank %}
+    <h2 class="foreverfan-heading-{{ section.id }}">{{ section.settings.heading }}</h2>
+  {% endif %}
+
+  <div class="foreverfan-embed-container-{{ section.id }}">
+    <iframe src="{{ section.settings.embed_url }}" title="Forever Fan Connect" allowfullscreen loading="lazy"></iframe>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Forever Fan Embed",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "STAY CONNECTED"
+    },
+    {
+      "type": "url",
+      "id": "embed_url",
+      "label": "Forever Fan URL",
+      "default": "https://fvr.fan/kid-finesse/kidfinessefamily"
+    },
+    {
+      "type": "range",
+      "id": "iframe_height",
+      "label": "Embed Height (px)",
+      "min": 300,
+      "max": 800,
+      "step": 10,
+      "default": 600
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "margin_top",
+      "label": "Top spacing",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "label": "Bottom spacing",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "default": 40
+    }
+  ],
+  "presets": [
+    {
+      "name": "Forever Fan Embed",
+      "category": "Custom Sections"
+    }
+  ]
+}
+{% endschema %}
