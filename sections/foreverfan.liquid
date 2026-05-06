@@ -6,7 +6,7 @@
     align-items: center;
     justify-content: center;
     width: 100%;
-    max-width: 800px;
+    max-width: 1200px;
     margin: {{ section.settings.margin_top }}px auto {{ section.settings.margin_bottom }}px auto;
     padding: 0 20px;
     text-align: center;
@@ -16,7 +16,6 @@
     margin-bottom: 24px;
     font-size: 32px;
     text-transform: uppercase;
-    /* Inherit global theme heading font if available */
     font-family: var(--font-heading-family), sans-serif; 
   }
 
@@ -24,14 +23,20 @@
     width: 100%;
     display: flex;
     justify-content: center;
+    /* This calculates the container height based on your zoom level so it doesn't leave blank space */
+    height: calc({{ section.settings.iframe_height }}px * {{ section.settings.embed_scale | divided_by: 100.0 }});
+    overflow: hidden;
   }
 
   .foreverfan-embed-container-{{ section.id }} iframe {
     width: 100%;
-    max-width: 600px; 
+    max-width: {{ section.settings.max_width }}px; 
     height: {{ section.settings.iframe_height }}px;
     border: none;
     border-radius: 8px; 
+    /* The CSS magic that shrinks the actual Forever Fan content */
+    transform: scale({{ section.settings.embed_scale | divided_by: 100.0 }});
+    transform-origin: top center;
   }
 </style>
 
@@ -62,11 +67,34 @@
       "default": "https://fvr.fan/kid-finesse/kidfinessefamily"
     },
     {
+      "type": "header",
+      "content": "Embed Sizing & Zoom"
+    },
+    {
+      "type": "range",
+      "id": "embed_scale",
+      "label": "Zoom / Scale Content (%)",
+      "min": 40,
+      "max": 100,
+      "step": 5,
+      "default": 100,
+      "info": "Shrinks the contents inside the embed. 100% is normal size."
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "label": "Embed Max Width (px)",
+      "min": 300,
+      "max": 1000,
+      "step": 10,
+      "default": 600
+    },
+    {
       "type": "range",
       "id": "iframe_height",
-      "label": "Embed Height (px)",
+      "label": "Embed Internal Height (px)",
       "min": 300,
-      "max": 800,
+      "max": 1200,
       "step": 10,
       "default": 600
     },
