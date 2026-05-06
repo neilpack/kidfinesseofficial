@@ -44,6 +44,17 @@
         "margin_bottom": 20
       }
     },
+    "foreverfan_jefAMh": {
+      "type": "foreverfan",
+      "name": "Forever Fan Embed",
+      "settings": {
+        "heading": "STAY CONNECTED",
+        "embed_url": "https://fvr.fan/kid-finesse/kidfinessefamily",
+        "iframe_height": 600,
+        "margin_top": 40,
+        "margin_bottom": 40
+      }
+    },
     "custom_store_rPDQkX": {
       "type": "custom-store",
       "name": "Custom Store",
@@ -58,6 +69,7 @@
     "custom_hero_mFhBUm",
     "custom_music_gQJGgC",
     "apple_music_JHp6DF",
+    "foreverfan_jefAMh",
     "custom_store_rPDQkX"
   ]
 }
