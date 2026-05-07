@@ -50,7 +50,10 @@
       "settings": {
         "heading": "STAY CONNECTED",
         "embed_url": "https://fvr.fan/kid-finesse/kidfinessefamily",
-        "iframe_height": 600,
+        "embed_url_2": "https://fvr.fan/kid-finesse/presaveforever",
+        "embed_scale": 70,
+        "max_width": 700,
+        "iframe_height": 1000,
         "margin_top": 40,
         "margin_bottom": 40
       }
