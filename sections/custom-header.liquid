@@ -6,25 +6,14 @@
     {% endif %}
 
     <nav>
-        <ul class="bar">
-            {% for link in linklists[section.settings.menu].links %}
-                {% if link.links != blank %}
-                    <li class="dropdown-parent">
-                        <a href="{{ link.url }}">{{ link.title | upcase }}</a>
-                        <ul class="dropdown-menu">
-                            {% for child_link in link.links %}
-                                <li><a href="{{ child_link.url }}">{{ child_link.title | upcase }}</a></li>
-                            {% endfor %}
-                        </ul>
-                    </li>
-                {% else %}
-                    <li class="dropdown-parent">
-                        <a href="{{ link.url }}">{{ link.title | upcase }}</a>
-                    </li>
-                {% endif %}
-            {% endfor %}
-        </ul>
-    </nav>
+    <ul class="bar">
+      {%- for link in linklists[section.settings.menu].links -%}
+        <li>
+          <a href="{{ link.url }}">{{ link.title | upcase }}</a>
+        </li>
+      {%- endfor -%}
+    </ul>
+  </nav>
     
     <div class="social-icons">
         {%- if settings.social_tiktok_link != blank -%}
