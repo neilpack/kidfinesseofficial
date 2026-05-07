@@ -1,5 +1,6 @@
 <style>
   /* Force white text and the global theme font on this specific section */
+  #shopify-section-{{ section.id }} h1,
   #shopify-section-{{ section.id }} h2,
   #shopify-section-{{ section.id }} p,
   #shopify-section-{{ section.id }} a {
@@ -63,7 +64,7 @@
 
 <div class="content-section" id="store">
     <div>
-        <h2>{{ section.settings.section_title | default: 'STORE' }}</h2>
+        <h1>{{ section.settings.section_title | default: 'STORE' }}</h1>
     </div>
     
     <div class="store-grid">
