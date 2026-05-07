@@ -6,37 +6,56 @@
     align-items: center;
     justify-content: center;
     width: 100%;
-    max-width: 1200px;
+    max-width: 1400px; /* Widened to allow room for two side-by-side embeds */
     margin: {{ section.settings.margin_top }}px auto {{ section.settings.margin_bottom }}px auto;
     padding: 0 20px;
     text-align: center;
   }
 
   .foreverfan-heading-{{ section.id }} {
-    margin-bottom: 24px;
+    margin-bottom: 40px;
     font-size: 32px;
     text-transform: uppercase;
     font-family: var(--font-heading-family), sans-serif; 
   }
 
-  .foreverfan-embed-container-{{ section.id }} {
+  /* The new row container holding both embeds */
+  .foreverfan-flex-row-{{ section.id }} {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 80px; /* Large breathing room between the embeds */
     width: 100%;
+    flex-wrap: wrap; /* Ensures they stack on top of each other on mobile */
+  }
+
+  /* The container wrapping each individual iframe */
+  .foreverfan-embed-container-{{ section.id }} {
+    /* Calculates the container height AND width based on your zoom level so it doesn't leave blank space */
+    height: calc({{ section.settings.iframe_height }}px * {{ section.settings.embed_scale | divided_by: 100.0 }});
+    width: calc({{ section.settings.max_width }}px * {{ section.settings.embed_scale | divided_by: 100.0 }});
+    max-width: 100%;
+    overflow: hidden;
     display: flex;
     justify-content: center;
-    /* This calculates the container height based on your zoom level so it doesn't leave blank space */
-    height: calc({{ section.settings.iframe_height }}px * {{ section.settings.embed_scale | divided_by: 100.0 }});
-    overflow: hidden;
   }
 
   .foreverfan-embed-container-{{ section.id }} iframe {
-    width: 100%;
-    max-width: {{ section.settings.max_width }}px; 
+    /* The iframe stays its original size for rendering, but scales down visually */
+    width: {{ section.settings.max_width }}px; 
     height: {{ section.settings.iframe_height }}px;
     border: none;
     border-radius: 8px; 
-    /* The CSS magic that shrinks the actual Forever Fan content */
     transform: scale({{ section.settings.embed_scale | divided_by: 100.0 }});
     transform-origin: top center;
+  }
+
+  /* Shrink the gap slightly on mobile phones so it looks natural */
+  @media (max-width: 768px) {
+    .foreverfan-flex-row-{{ section.id }} {
+      gap: 40px; 
+    }
   }
 </style>
 
@@ -45,14 +64,26 @@
     <h2 class="foreverfan-heading-{{ section.id }}">{{ section.settings.heading }}</h2>
   {% endif %}
 
-  <div class="foreverfan-embed-container-{{ section.id }}">
-    <iframe src="{{ section.settings.embed_url }}" title="Forever Fan Connect" allowfullscreen loading="lazy"></iframe>
+  <div class="foreverfan-flex-row-{{ section.id }}">
+    
+    {% if section.settings.embed_url != blank %}
+      <div class="foreverfan-embed-container-{{ section.id }}">
+        <iframe src="{{ section.settings.embed_url }}" title="Forever Fan Connect" allowfullscreen loading="lazy"></iframe>
+      </div>
+    {% endif %}
+
+    {% if section.settings.embed_url_2 != blank %}
+      <div class="foreverfan-embed-container-{{ section.id }}">
+        <iframe src="{{ section.settings.embed_url_2 }}" title="Forever Fan Presave" allowfullscreen loading="lazy"></iframe>
+      </div>
+    {% endif %}
+
   </div>
 </div>
 
 {% schema %}
 {
-  "name": "Forever Fan Embed",
+  "name": "Forever Fan Embeds",
   "settings": [
     {
       "type": "text",
@@ -63,12 +94,18 @@
     {
       "type": "text",
       "id": "embed_url",
-      "label": "Forever Fan URL",
+      "label": "Left URL (Community)",
       "default": "https://fvr.fan/kid-finesse/kidfinessefamily"
     },
     {
+      "type": "text",
+      "id": "embed_url_2",
+      "label": "Right URL (Presave)",
+      "default": "https://fvr.fan/kid-finesse/presaveforever"
+    },
+    {
       "type": "header",
-      "content": "Embed Sizing & Zoom"
+      "content": "Embed Sizing & Zoom (Applies to both)"
     },
     {
       "type": "range",
@@ -83,7 +120,7 @@
     {
       "type": "range",
       "id": "max_width",
-      "label": "Embed Max Width (px)",
+      "label": "Embed Internal Max Width (px)",
       "min": 300,
       "max": 1000,
       "step": 10,
@@ -123,7 +160,7 @@
   ],
   "presets": [
     {
-      "name": "Forever Fan Embed",
+      "name": "Forever Fan Embeds",
       "category": "Custom Sections"
     }
   ]
