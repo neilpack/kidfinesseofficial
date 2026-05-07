@@ -13,7 +13,7 @@
       "type": "custom-hero",
       "name": "Custom Hero",
       "settings": {
-        "desktop_image": "shopify://shop_images/SMALLER_DIMENSIONS_2.jpg",
+        "desktop_image": "shopify://shop_images/hero_bottom_cut.jpg",
         "mobile_image": "shopify://shop_images/SMALLER_DIMENSIONS_2.jpg"
       }
     },
