@@ -1,6 +1,12 @@
 <style>
-  /* Force white text and the global theme font on this specific section */
-  #shopify-section-{{ section.id }} h1,
+  /* Force black text and white background specifically for the h1 in this section */
+  #shopify-section-{{ section.id }} h1 {
+    font-family: var(--font-heading-family) !important;
+    text-decoration: none !important;
+    margin: 0;
+  }
+
+  /* Force white text and the global theme font for the rest of the text */
   #shopify-section-{{ section.id }} h2,
   #shopify-section-{{ section.id }} p,
   #shopify-section-{{ section.id }} a {
