@@ -1,3 +1,16 @@
+<style>
+  /* Adds top margin above the container holding all the products */
+  .product-list-wraper {
+    margin-top: 2rem;
+  }
+
+  /* Makes the product images smaller only on this specific page */
+  #product-list .product-image-container {
+    width: 85% !important;
+    margin: 0 auto; /* Keeps the shrunken image perfectly centered in its column */
+  }
+</style>
+
 <div class="page-width">
   <h2 class="collection-title">{{ collection.title }}</h2>
   <div class='product-list-wraper'>
@@ -158,5 +171,3 @@
     {%- endpaginate -%}
   </div>
 </div>
-
-

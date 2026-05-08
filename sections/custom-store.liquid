@@ -74,27 +74,31 @@
     </div>
     
     <div class="store-grid">
-        {% assign collection = collections[section.settings.collection_handle] %}
-        
-        {% if collection != blank and collection.products_count > 0 %}
-            {% for product in collection.products limit: 3 %}
-                <div style="display: flex; flex-direction: column; align-items: center; gap: 15px;">
-                    <a href="{{ product.url }}" class="placeholder-box" style="text-decoration: none;">
-                        <img src="{{ product.featured_image | img_url: '600x600', crop: 'center' }}" alt="{{ product.title | escape }}">
-                    </a>
-                    
-                    <p style="color: white; text-align: center; margin: 0; font-size: 1.1rem; text-transform: uppercase; line-height: 1.4;">
-                        {{ product.title }}<br>
+        {% if section.blocks.size > 0 %}
+            {% for block in section.blocks %}
+                {% assign product = block.settings.product %}
+                
+                {% if product != blank %}
+                    <div style="display: flex; flex-direction: column; align-items: center; gap: 15px;" {{ block.shopify_attributes }}>
+                        <a href="{{ product.url }}" class="placeholder-box" style="text-decoration: none;">
+                            <img src="{{ product.featured_image | img_url: '600x600', crop: 'center' }}" alt="{{ product.title | escape }}">
+                        </a>
                         
-                        {% if product.available %}
-                            {{ product.price | money }}<br>
-                            <span style="visibility: hidden; font-size: 0.9rem; letter-spacing: 1px;">SPACE</span>
-                        {% else %}
-                            <span style="text-decoration: line-through; opacity: 0.7;">{{ product.price | money }}</span><br>
-                            <span style="color: #cccccc; font-size: 0.9rem; letter-spacing: 1px;">SOLD OUT</span>
-                        {% endif %}
-                    </p>
-                </div>
+                        <p style="color: white; text-align: center; margin: 0; font-size: 1.1rem; text-transform: uppercase; line-height: 1.4;">
+                            {{ product.title }}<br>
+                            
+                            {% if product.available %}
+                                {{ product.price | money }}<br>
+                                <span style="visibility: hidden; font-size: 0.9rem; letter-spacing: 1px;">SPACE</span>
+                            {% else %}
+                                <span style="text-decoration: line-through; opacity: 0.7;">{{ product.price | money }}</span><br>
+                                <span style="color: #cccccc; font-size: 0.9rem; letter-spacing: 1px;">SOLD OUT</span>
+                            {% endif %}
+                        </p>
+                    </div>
+                {% else %}
+                    <div class="placeholder-box" style="display: flex; align-items: center; justify-content: center; color: #555;" {{ block.shopify_attributes }}>SELECT PRODUCT</div>
+                {% endif %}
             {% endfor %}
         {% else %}
             <div class="placeholder-box" style="display: flex; align-items: center; justify-content: center; color: #555;">MERCH 1</div>
@@ -103,7 +107,7 @@
         {% endif %}
     </div>
 
-    <a href="{{ collection.url | default: '#store' }}" style="text-decoration: none; color: inherit;">
+    <a href="{{ section.settings.button_link | default: '#store' }}" style="text-decoration: none; color: inherit;">
         <h2 id="merch-button">{{ section.settings.button_text | default: 'SEE ALL MERCH' }}</h2>
     </a>
 </div>
@@ -119,9 +123,9 @@
       "default": "STORE"
     },
     {
-      "type": "collection",
-      "id": "collection_handle",
-      "label": "Select Merch Collection"
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link (See All Merch)"
     },
     {
       "type": "text",
@@ -130,10 +134,29 @@
       "default": "SEE ALL MERCH"
     }
   ],
+  "blocks": [
+    {
+      "type": "product_block",
+      "name": "Product",
+      "limit": 3,
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Select Product"
+        }
+      ]
+    }
+  ],
   "presets": [
     {
       "name": "Custom Store",
-      "category": "Store"
+      "category": "Store",
+      "blocks": [
+        { "type": "product_block" },
+        { "type": "product_block" },
+        { "type": "product_block" }
+      ]
     }
   ]
 }
