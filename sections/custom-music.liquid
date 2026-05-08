@@ -30,6 +30,14 @@
     background-color: #ffffff;
     color: #000000 !important; 
   }
+
+  /*Hide inactive slides, show active slide */
+  #shopify-section-{{ section.id }} .music-slide {
+    display: none !important;
+  }
+  #shopify-section-{{ section.id }} .music-slide.active {
+    display: flex !important; /* Overrides display:none while keeping your .bar flex layout */
+  }
 </style>
 
 <div class="content-section" id="music">
@@ -45,27 +53,82 @@
         {% endif %}
     </div>
     
-    <div class="carousel-container">
-        <img src="{{ 'arrow-left.svg' | asset_url }}" alt="Previous Album" class="nav-arrow">
+    <div class="carousel-container" id="music-carousel-{{ section.id }}">
+        <img src="{{ 'arrow-left.svg' | asset_url }}" alt="Previous Album" class="nav-arrow music-prev">
         
-        <div class="bar">
-            {% if section.settings.album_image != blank %}
-                <img src="{{ section.settings.album_image | image_url: width: 600 }}" alt="{{ section.settings.album_title }}">
-            {% else %}
+        {% if section.blocks.size > 0 %}
+            {% for block in section.blocks %}
+                <div class="bar music-slide {% if forloop.first %}active{% endif %}" {{ block.shopify_attributes }}>
+                    {% if block.settings.album_image != blank %}
+                        <img src="{{ block.settings.album_image | image_url: width: 600 }}" alt="{{ block.settings.album_title }}">
+                    {% else %}
+                        <img src="{{ 'album.jpg' | asset_url }}" alt="Music Section Image">
+                    {% endif %}
+                    
+                    <section>
+                        <h2>{{ block.settings.album_title | default: 'Album Title' }}</h2>
+                        <a href="{{ block.settings.stream_link | default: '#' }}" target="_blank" style="text-decoration: none;">
+                            <h2 id="stream-button">Stream</h2>
+                        </a>
+                    </section>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="bar music-slide active">
                 <img src="{{ 'album.jpg' | asset_url }}" alt="Music Section Image">
-            {% endif %}
-            
-            <section>
-                <h2>{{ section.settings.album_title | default: 'Seth' }}</h2>
-                <a href="{{ section.settings.stream_link | default: '#' }}" target="_blank" style="text-decoration: none;">
-                    <h2 id="stream-button">Stream</h2>
-                </a>
-            </section>
-        </div>
+                <section>
+                    <h2>Seth</h2>
+                    <a href="#" target="_blank" style="text-decoration: none;">
+                        <h2 id="stream-button">Stream</h2>
+                    </a>
+                </section>
+            </div>
+        {% endif %}
         
-        <img src="{{ 'arrow-right.svg' | asset_url }}" alt="Next Album" class="nav-arrow">
+        <img src="{{ 'arrow-right.svg' | asset_url }}" alt="Next Album" class="nav-arrow music-next">
     </div>
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const carousel = document.getElementById('music-carousel-{{ section.id }}');
+    if (!carousel) return;
+
+    const slides = carousel.querySelectorAll('.music-slide');
+    const prevBtn = carousel.querySelector('.music-prev');
+    const nextBtn = carousel.querySelector('.music-next');
+    let currentIndex = 0;
+
+    // Only enable clicking if there is more than 1 album
+    if (slides.length > 1) {
+        function showSlide(index) {
+            slides.forEach((slide, i) => {
+                if (i === index) {
+                    slide.classList.add('active');
+                } else {
+                    slide.classList.remove('active');
+                }
+            });
+        }
+
+        prevBtn.addEventListener('click', () => {
+            // If on the first slide, jump to the last. Otherwise, go down one.
+            currentIndex = (currentIndex > 0) ? currentIndex - 1 : slides.length - 1;
+            showSlide(currentIndex);
+        });
+
+        nextBtn.addEventListener('click', () => {
+            // If on the last slide, jump to the first. Otherwise, go up one.
+            currentIndex = (currentIndex < slides.length - 1) ? currentIndex + 1 : 0;
+            showSlide(currentIndex);
+        });
+    } else {
+        // Dim the arrows if there's only 1 album so the user knows they aren't clickable
+        if(prevBtn) prevBtn.style.opacity = '0.2';
+        if(nextBtn) nextBtn.style.opacity = '0.2';
+    }
+});
+</script>
 
 {% schema %}
 {
@@ -82,28 +145,42 @@
       "id": "spotify_embed",
       "label": "Spotify Embed Code (iframe)",
       "info": "Paste the iframe code directly from Spotify here."
-    },
+    }
+  ],
+  "blocks": [
     {
-      "type": "image_picker",
-      "id": "album_image",
-      "label": "Featured Album Image"
-    },
-    {
-      "type": "text",
-      "id": "album_title",
-      "label": "Album Title",
-      "default": "Seth"
-    },
-    {
-      "type": "url",
-      "id": "stream_link",
-      "label": "Stream Button Link"
+      "type": "album",
+      "name": "Album",
+      "limit": 3,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "album_image",
+          "label": "Album Cover"
+        },
+        {
+          "type": "text",
+          "id": "album_title",
+          "label": "Album Title",
+          "default": "Seth"
+        },
+        {
+          "type": "url",
+          "id": "stream_link",
+          "label": "Stream Button Link"
+        }
+      ]
     }
   ],
   "presets": [
     {
       "name": "Custom Music",
-      "category": "Music"
+      "category": "Music",
+      "blocks": [
+        {
+          "type": "album"
+        }
+      ]
     }
   ]
 }
