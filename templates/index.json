@@ -46,10 +46,21 @@
     },
     "custom_store_rPDQkX": {
       "type": "custom-store",
+      "blocks": {
+        "product_block_QPL9X4": {
+          "type": "product_block",
+          "settings": {
+            "product": "black-hoodie"
+          }
+        }
+      },
+      "block_order": [
+        "product_block_QPL9X4"
+      ],
       "name": "Custom Store",
       "settings": {
         "section_title": "STORE",
-        "collection_handle": "frontpage",
+        "button_link": "shopify://collections/all",
         "button_text": "SEE ALL MERCH"
       }
     },
