@@ -2,7 +2,7 @@
 
 html {
     scroll-behavior: smooth;
-    scroll-padding-top: 100px; /*adjust for size of the header*/
+    scroll-padding-top: 85px; /*adjust for size of the header*/
 }
 
 body {
@@ -11,7 +11,14 @@ body {
     background-color: black;
 }
 
-h1, h2, h3, p {
+h1, h2, h3 {
+    color: black;
+    background-color: white;
+    padding: 20px;
+    margin: 0;
+}
+
+p {
     color: white;
     margin: 0;
 }
