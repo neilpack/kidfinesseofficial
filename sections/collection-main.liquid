@@ -1,13 +1,15 @@
 <style>
   /* Adds top margin above the container holding all the products */
   .product-list-wraper {
-    margin-top: 2rem;
+    margin-top: 4rem; 
   }
 
-  /* Makes the product images smaller only on this specific page */
-  #product-list .product-image-container {
-    width: 65% !important;
-    margin: 0 auto; /* Keeps the shrunken image perfectly centered in its column */
+  #product-list img.product-list__product-img {
+    width: 65% !important; 
+    height: 65% !important; 
+    max-width: 65% !important;
+    max-height: 65% !important;
+    object-fit: contain !important;
   }
 </style>
 
