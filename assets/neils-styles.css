@@ -132,7 +132,7 @@ main div.bar {
     gap: 2rem;
     padding: 2rem;
     flex-wrap: wrap; 
-    margin-bottom: 100px;;
+    margin-bottom: 50px;;
 }
 
 .content-section div section {
@@ -185,6 +185,8 @@ main div.bar {
     cursor: pointer; 
     transition: transform 0.2s ease, opacity 0.2s ease;
     filter: brightness(0) invert(100%); 
+    box-shadow: none !important; 
+    border-radius: 0 !important;
 }
 
 .nav-arrow:hover {
