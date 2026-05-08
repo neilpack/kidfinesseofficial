@@ -15,9 +15,26 @@
     font-size: 44px;
     {% endif %}
   }
-  .product-list{
+
+  /* --- NEIL'S SMALLER STYLES --- */
+  
+  /* Adds top margin above the container holding all the products */
+  #shopify-section-{{ section.id }} .product-list {
+    margin-top: 4rem; /* Adjust this number to increase/decrease the gap */
     margin-bottom: inherit;
   }
+
+  /* Target the actual image file to force it to shrink, scoped ONLY to this section */
+  #shopify-section-{{ section.id }} img.product-list__product-img {
+    width: 65% !important; 
+    height: 65% !important; 
+    max-width: 65% !important;
+    max-height: 65% !important;
+    object-fit: contain !important;
+  }
+  
+  /* ------------------- */
+
   @media screen and (max-width: 749px){
   .f-collection-title{
     {% if section.settings.font-size == 's' %}
