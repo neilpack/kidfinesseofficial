@@ -13,8 +13,8 @@
       "type": "custom-hero",
       "name": "Custom Hero",
       "settings": {
-        "desktop_image": "shopify://shop_images/hero.png",
-        "mobile_image": "shopify://shop_images/hero_phone.png"
+        "desktop_image": "shopify://shop_images/hero_bottom_cut.jpg",
+        "mobile_image": "shopify://shop_images/SMALLER_DIMENSIONS_2.jpg"
       }
     },
     "custom_music_gQJGgC": {
@@ -44,6 +44,15 @@
         "margin_bottom": 20
       }
     },
+    "custom_store_rPDQkX": {
+      "type": "custom-store",
+      "name": "Custom Store",
+      "settings": {
+        "section_title": "STORE",
+        "collection_handle": "frontpage",
+        "button_text": "SEE ALL MERCH"
+      }
+    },
     "foreverfan_jefAMh": {
       "type": "foreverfan",
       "name": "Forever Fan Embed",
@@ -57,22 +66,13 @@
         "margin_top": 40,
         "margin_bottom": 40
       }
-    },
-    "custom_store_rPDQkX": {
-      "type": "custom-store",
-      "name": "Custom Store",
-      "settings": {
-        "section_title": "STORE",
-        "collection_handle": "frontpage",
-        "button_text": "SEE ALL MERCH"
-      }
     }
   },
   "order": [
     "custom_hero_mFhBUm",
     "custom_music_gQJGgC",
     "apple_music_JHp6DF",
-    "foreverfan_jefAMh",
-    "custom_store_rPDQkX"
+    "custom_store_rPDQkX",
+    "foreverfan_jefAMh"
   ]
 }
