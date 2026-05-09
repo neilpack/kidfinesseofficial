@@ -179,9 +179,6 @@ h1 {
     filter: brightness(0) invert(100%); 
     box-shadow: none !important; 
     border-radius: 0 !important;
-
-    -webkit-user-drag: none;
-    user-select: none;
 }
 
 .nav-arrow:hover {
