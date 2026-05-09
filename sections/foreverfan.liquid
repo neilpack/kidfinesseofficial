@@ -6,7 +6,7 @@
     align-items: center;
     justify-content: center;
     width: 100%;
-    max-width: 1400px; /* Widened to allow room for two side-by-side embeds */
+    max-width: 1400px; /* Widened to allow room for side-by-side text and embed */
     margin: {{ section.settings.margin_top }}px auto {{ section.settings.margin_bottom }}px auto;
     padding: 0 20px;
     text-align: center;
@@ -19,20 +19,55 @@
     font-family: var(--font-heading-family), sans-serif; 
   }
 
-  /* The new row container holding both embeds */
-  .foreverfan-flex-row-{{ section.id }} {
+  /* The main container stacking the two rows on top of each other */
+  .foreverfan-stack-{{ section.id }} {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 60px; /* Space between the top embed row and bottom embed row */
+    width: 100%;
+  }
+
+  /* The row container holding one embed and one textbox */
+  .foreverfan-embed-row-{{ section.id }} {
     display: flex;
     flex-direction: row;
     justify-content: center;
-    align-items: flex-start;
-    gap: 53px; /* Gap between the embeds*/
+    align-items: center;
+    gap: 40px; /* Gap between the text box and the embed */
     width: 100%;
-    flex-wrap: wrap; /* Ensures they stack on top of each other on mobile */
+  }
+
+  /* The text box describing the embed */
+  .foreverfan-text-box-{{ section.id }} {
+    background-color: #000000;
+    border: 2px solid #ffffff;
+    color: #ffffff;
+    /* Match height dynamically to the scaled iframe height */
+    height: calc({{ section.settings.iframe_height }}px * {{ section.settings.embed_scale | divided_by: 100.0 }});
+    flex: 1;
+    max-width: 600px; /* Wide width for the text box */
+    padding: 40px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: left;
+    box-sizing: border-box;
+    overflow-y: auto;
+  }
+
+  .foreverfan-text-box-{{ section.id }} p {
+    font-family: var(--font-body-family), sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    margin: 0;
+    color: #ffffff !important;
   }
 
   /* The container wrapping each individual iframe */
   .foreverfan-embed-container-{{ section.id }} {
-    /* Calculates the container height AND width based on your zoom level so it doesn't leave blank space */
+    /* Calculates the container height AND width based on your zoom level */
     height: calc({{ section.settings.iframe_height }}px * {{ section.settings.embed_scale | divided_by: 100.0 }});
     width: calc({{ section.settings.max_width }}px * {{ section.settings.embed_scale | divided_by: 100.0 }});
     max-width: 100%;
@@ -51,10 +86,16 @@
     transform-origin: top center;
   }
 
-  /* Shrink the gap slightly on mobile phones so it looks natural */
+  /* Mobile Styles: Hide the text boxes and reduce gaps */
   @media (max-width: 768px) {
-    .foreverfan-flex-row-{{ section.id }} {
+    .foreverfan-text-box-{{ section.id }} {
+      display: none !important; 
+    }
+    .foreverfan-stack-{{ section.id }} {
       gap: 40px; 
+    }
+    .foreverfan-embed-row-{{ section.id }} {
+      flex-direction: column;
     }
   }
 </style>
@@ -64,17 +105,42 @@
     <h1 class="foreverfan-heading-{{ section.id }}">{{ section.settings.heading }}</h1>
   {% endif %}
 
-  <div class="foreverfan-flex-row-{{ section.id }}">
+  <div class="foreverfan-stack-{{ section.id }}">
     
+    <!-- ROW 1: Text Box (Left) + Community Embed (Right) -->
     {% if section.settings.embed_url != blank %}
-      <div class="foreverfan-embed-container-{{ section.id }}">
-        <iframe src="{{ section.settings.embed_url }}" title="Forever Fan Connect" allowfullscreen loading="lazy"></iframe>
+      <div class="foreverfan-embed-row-{{ section.id }}">
+        
+        <!-- Text Box Left -->
+        {% if section.settings.community_text != blank %}
+          <div class="foreverfan-text-box-{{ section.id }}">
+            {{ section.settings.community_text }}
+          </div>
+        {% endif %}
+
+        <!-- Embed Right -->
+        <div class="foreverfan-embed-container-{{ section.id }}">
+          <iframe src="{{ section.settings.embed_url }}" title="Forever Fan Connect" allowfullscreen loading="lazy"></iframe>
+        </div>
       </div>
     {% endif %}
 
+    <!-- ROW 2: Presave Embed (Left) + Text Box (Right) -->
     {% if section.settings.embed_url_2 != blank %}
-      <div class="foreverfan-embed-container-{{ section.id }}">
-        <iframe src="{{ section.settings.embed_url_2 }}" title="Forever Fan Presave" allowfullscreen loading="lazy"></iframe>
+      <div class="foreverfan-embed-row-{{ section.id }}">
+        
+        <!-- Embed Left -->
+        <div class="foreverfan-embed-container-{{ section.id }}">
+          <iframe src="{{ section.settings.embed_url_2 }}" title="Forever Fan Presave" allowfullscreen loading="lazy"></iframe>
+        </div>
+
+        <!-- Text Box Right -->
+        {% if section.settings.presave_text != blank %}
+          <div class="foreverfan-text-box-{{ section.id }}">
+            {{ section.settings.presave_text }}
+          </div>
+        {% endif %}
+
       </div>
     {% endif %}
 
@@ -92,16 +158,36 @@
       "default": "STAY CONNECTED"
     },
     {
+      "type": "header",
+      "content": "Top Embed (Community)"
+    },
+    {
       "type": "text",
       "id": "embed_url",
-      "label": "Left URL (Community)",
+      "label": "Community Embed URL",
       "default": "https://fvr.fan/kid-finesse/kidfinessefamily"
+    },
+    {
+      "type": "richtext",
+      "id": "community_text",
+      "label": "Community Description Box (Left)",
+      "default": "<p>Join the Kid Finesse family. Sign up to get exclusive updates, early access to tickets, and behind-the-scenes content directly to your phone.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Bottom Embed (Presave)"
     },
     {
       "type": "text",
       "id": "embed_url_2",
-      "label": "Right URL (Presave)",
+      "label": "Presave Embed URL",
       "default": "https://fvr.fan/kid-finesse/presaveforever"
+    },
+    {
+      "type": "richtext",
+      "id": "presave_text",
+      "label": "Presave Description Box (Right)",
+      "default": "<p>Pre-save the upcoming tracks to be the first to hear them the moment they drop. Don't miss out on the new era of Kid Finesse.</p>"
     },
     {
       "type": "header",
