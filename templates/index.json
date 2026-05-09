@@ -35,11 +35,20 @@
             "album_title": "My Summertime Roster",
             "stream_link": "https://open.spotify.com/album/7rssMPuqz5FrBC6WOcjU1C"
           }
+        },
+        "album_fbF3Ga": {
+          "type": "album",
+          "settings": {
+            "album_image": "shopify://shop_images/album_luv_everything.png",
+            "album_title": "Luv > Everything",
+            "stream_link": "https://open.spotify.com/album/2xjpkM0mKpoUlkvab7sfi9"
+          }
         }
       },
       "block_order": [
         "album_whzxnD",
-        "album_J3nhi4"
+        "album_J3nhi4",
+        "album_fbF3Ga"
       ],
       "custom_css": [
         "h2 {color: white;}"
