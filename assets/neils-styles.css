@@ -120,9 +120,9 @@ h1 {
     font-size: 30px;
 }
 
-main div.bar {
+/* main div.bar {
     gap: 150px;
-}
+} */
 
 .content-section {
     display: flex;
