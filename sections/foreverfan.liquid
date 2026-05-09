@@ -91,29 +91,30 @@
      ANIMATION STYLES (Desktop Only)
   ========================================= */
   @media (min-width: 769px) {
-    /* Top row elements (Starts left, swoops right) */
+    /* Elements start off-screen to the left, swoop right */
     .foreverfan-hidden-left-{{ section.id }} {
       opacity: 0;
       filter: blur(5px);
-      transform: translateX(-100%);
+      transform: translateX(-100px);
       transition: all 1s ease-out;
     }
     
-    /* Bottom row elements (Starts right, swoops left) */
+    /* Elements start off-screen to the right, swoop left */
     .foreverfan-hidden-right-{{ section.id }} {
       opacity: 0;
       filter: blur(5px);
-      transform: translateX(100%);
+      transform: translateX(100px);
       transition: all 1s ease-out;
     }
 
+    /* Final resting state for both */
     .foreverfan-show-{{ section.id }} {
       opacity: 1;
       filter: blur(0);
       transform: translateX(0);
     }
 
-    /* Stagger items inside rows from Left to Right */
+    /* Stagger the animation: Left child goes first, Right child goes 200ms later */
     .foreverfan-embed-row-{{ section.id }} > :nth-child(1) {
       transition-delay: 0ms;
     }
@@ -150,36 +151,34 @@
 
   <div class="foreverfan-stack-{{ section.id }}">
     
-    <!-- ROW 1: Text Box (Left) + Community Embed (Right) -->
-    <!-- Applies left-to-right swoop -->
+    <!-- ROW 1: Both elements swoop in from the LEFT -->
     {% if section.settings.embed_url != blank %}
       <div class="foreverfan-embed-row-{{ section.id }}">
         
-        <!-- Text Box Left (Animates First: 0ms delay) -->
+        <!-- Text Box Left -->
         {% if section.settings.community_text != blank %}
           <div class="foreverfan-text-box-{{ section.id }} foreverfan-hidden-left-{{ section.id }}">
             {{ section.settings.community_text }}
           </div>
         {% endif %}
 
-        <!-- Embed Right (Animates Second: 200ms delay) -->
+        <!-- Embed Right -->
         <div class="foreverfan-embed-container-{{ section.id }} foreverfan-hidden-left-{{ section.id }}">
           <iframe src="{{ section.settings.embed_url }}" title="Forever Fan Connect" allowfullscreen loading="lazy"></iframe>
         </div>
       </div>
     {% endif %}
 
-    <!-- ROW 2: Presave Embed (Left) + Text Box (Right) -->
-    <!-- Applies right-to-left swoop -->
+    <!-- ROW 2: Both elements swoop in from the RIGHT -->
     {% if section.settings.embed_url_2 != blank %}
       <div class="foreverfan-embed-row-{{ section.id }}">
         
-        <!-- Embed Left (Animates First: 0ms delay) -->
+        <!-- Embed Left -->
         <div class="foreverfan-embed-container-{{ section.id }} foreverfan-hidden-right-{{ section.id }}">
           <iframe src="{{ section.settings.embed_url_2 }}" title="Forever Fan Presave" allowfullscreen loading="lazy"></iframe>
         </div>
 
-        <!-- Text Box Right (Animates Second: 200ms delay) -->
+        <!-- Text Box Right -->
         {% if section.settings.presave_text != blank %}
           <div class="foreverfan-text-box-{{ section.id }} foreverfan-hidden-right-{{ section.id }}">
             {{ section.settings.presave_text }}
@@ -196,16 +195,15 @@
   document.addEventListener("DOMContentLoaded", function() {
     // Only run the observer if the screen width is greater than mobile sizing
     if (window.innerWidth > 768) {
-      const observer = new IntersectionObserver((entries) => {
+      const observer = new IntersectionObserver((entries, observer) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             entry.target.classList.add('foreverfan-show-{{ section.id }}');
-          } else {
-            // Re-hide element when scrolling out of view so it animates again
-            entry.target.classList.remove('foreverfan-show-{{ section.id }}');
+            // Stop observing the element so the animation only happens once
+            observer.unobserve(entry.target); 
           }
         });
-      }, { threshold: 0.1 });
+      }, { threshold: 0.1 }); // Triggers when 10% of the element is visible
 
       // Grab both left-sliding and right-sliding elements
       const hiddenLeft = document.querySelectorAll('.foreverfan-hidden-left-{{ section.id }}');
