@@ -168,14 +168,11 @@ h1 {
 .carousel-container {
     display: flex;
     align-items: center; 
-    justify-content: space-between; 
+    justify-content: center; 
     width: 100%;
-    
-    /* Change this from 1000px to something smaller like 800px or 750px */
-    max-width: 750px; 
-    
+    max-width: 950px; 
     margin: 0 auto;
-    gap: 2rem; 
+    gap: 3rem;
 }
 
 .nav-arrow {

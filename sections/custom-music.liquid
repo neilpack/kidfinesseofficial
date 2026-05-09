@@ -36,7 +36,10 @@
     display: none !important;
   }
   #shopify-section-{{ section.id }} .music-slide.active {
-    display: flex !important; /* Overrides display:none while keeping your .bar flex layout */
+    display: flex !important;
+    justify-content: center !important; /* Centers the image and text */
+    align-items: center !important;
+    gap: 3rem !important; 
   }
 
   /* =========================================
