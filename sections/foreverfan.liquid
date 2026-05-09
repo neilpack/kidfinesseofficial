@@ -10,6 +10,7 @@
     margin: {{ section.settings.margin_top }}px auto {{ section.settings.margin_bottom }}px auto;
     padding: 0 20px;
     text-align: center;
+    overflow: hidden; /* Prevents horizontal scrollbar during animations */
   }
 
   .foreverfan-heading-{{ section.id }} {
@@ -90,17 +91,19 @@
      ANIMATION STYLES (Desktop Only)
   ========================================= */
   @media (min-width: 769px) {
+    /* Top row elements (Starts left, swoops right) */
     .foreverfan-hidden-left-{{ section.id }} {
       opacity: 0;
       filter: blur(5px);
-      transform: translateX(-100px);
+      transform: translateX(-100%);
       transition: all 1s ease-out;
     }
     
+    /* Bottom row elements (Starts right, swoops left) */
     .foreverfan-hidden-right-{{ section.id }} {
       opacity: 0;
       filter: blur(5px);
-      transform: translateX(100px);
+      transform: translateX(100%);
       transition: all 1s ease-out;
     }
 
@@ -108,6 +111,14 @@
       opacity: 1;
       filter: blur(0);
       transform: translateX(0);
+    }
+
+    /* Stagger items inside rows from Left to Right */
+    .foreverfan-embed-row-{{ section.id }} > :nth-child(1) {
+      transition-delay: 0ms;
+    }
+    .foreverfan-embed-row-{{ section.id }} > :nth-child(2) {
+      transition-delay: 200ms;
     }
   }
 
@@ -140,33 +151,35 @@
   <div class="foreverfan-stack-{{ section.id }}">
     
     <!-- ROW 1: Text Box (Left) + Community Embed (Right) -->
+    <!-- Applies left-to-right swoop -->
     {% if section.settings.embed_url != blank %}
       <div class="foreverfan-embed-row-{{ section.id }}">
         
-        <!-- Text Box Left -->
+        <!-- Text Box Left (Animates First: 0ms delay) -->
         {% if section.settings.community_text != blank %}
           <div class="foreverfan-text-box-{{ section.id }} foreverfan-hidden-left-{{ section.id }}">
             {{ section.settings.community_text }}
           </div>
         {% endif %}
 
-        <!-- Embed Right -->
-        <div class="foreverfan-embed-container-{{ section.id }} foreverfan-hidden-right-{{ section.id }}">
+        <!-- Embed Right (Animates Second: 200ms delay) -->
+        <div class="foreverfan-embed-container-{{ section.id }} foreverfan-hidden-left-{{ section.id }}">
           <iframe src="{{ section.settings.embed_url }}" title="Forever Fan Connect" allowfullscreen loading="lazy"></iframe>
         </div>
       </div>
     {% endif %}
 
     <!-- ROW 2: Presave Embed (Left) + Text Box (Right) -->
+    <!-- Applies right-to-left swoop -->
     {% if section.settings.embed_url_2 != blank %}
       <div class="foreverfan-embed-row-{{ section.id }}">
         
-        <!-- Embed Left -->
-        <div class="foreverfan-embed-container-{{ section.id }} foreverfan-hidden-left-{{ section.id }}">
+        <!-- Embed Left (Animates First: 0ms delay) -->
+        <div class="foreverfan-embed-container-{{ section.id }} foreverfan-hidden-right-{{ section.id }}">
           <iframe src="{{ section.settings.embed_url_2 }}" title="Forever Fan Presave" allowfullscreen loading="lazy"></iframe>
         </div>
 
-        <!-- Text Box Right -->
+        <!-- Text Box Right (Animates Second: 200ms delay) -->
         {% if section.settings.presave_text != blank %}
           <div class="foreverfan-text-box-{{ section.id }} foreverfan-hidden-right-{{ section.id }}">
             {{ section.settings.presave_text }}
@@ -192,7 +205,7 @@
             entry.target.classList.remove('foreverfan-show-{{ section.id }}');
           }
         });
-      }, { threshold: 0.1 }); // Triggers when 10% of the element is visible
+      }, { threshold: 0.1 });
 
       // Grab both left-sliding and right-sliding elements
       const hiddenLeft = document.querySelectorAll('.foreverfan-hidden-left-{{ section.id }}');
