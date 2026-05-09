@@ -172,11 +172,11 @@ h1 {
     width: 100%;
     max-width: 950px; 
     margin: 0 auto;
-    gap: 3rem;
+    gap: 2rem;
 }
 
 .nav-arrow {
-    width: 20px; /* Make the arrow smaller here */
+    width: 20px !important; /* Make the arrow smaller here */
     height: auto;
     cursor: pointer; 
     transition: transform 0.2s ease, opacity 0.2s ease;
