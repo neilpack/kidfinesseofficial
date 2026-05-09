@@ -120,10 +120,6 @@ h1 {
     font-size: 30px;
 }
 
-/* main div.bar {
-    gap: 150px;
-} */
-
 .content-section {
     display: flex;
     flex-direction: column;
@@ -176,13 +172,16 @@ h1 {
 }
 
 .nav-arrow {
-    width: 20px !important; /* Make the arrow smaller here */
+    width: 25px !important; /* Make the arrow smaller here */
     height: auto;
     cursor: pointer; 
     transition: transform 0.2s ease, opacity 0.2s ease;
     filter: brightness(0) invert(100%); 
     box-shadow: none !important; 
     border-radius: 0 !important;
+
+    -webkit-user-drag: none;
+    user-select: none;
 }
 
 .nav-arrow:hover {
