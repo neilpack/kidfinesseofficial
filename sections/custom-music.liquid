@@ -31,33 +31,25 @@
     color: #000000 !important; 
   }
 
-  /* Hide inactive slides */
+  /*Hide inactive slides, show active slide */
   #shopify-section-{{ section.id }} .music-slide {
     display: none !important;
+  }
+  #shopify-section-{{ section.id }} .music-slide.active {
+    display: flex !important; /* Overrides display:none while keeping your .bar flex layout */
   }
 
   /* =========================================
      FIX FOR SHIFTING ARROWS & BUTTONS
   ========================================= */
   
-  /* 1. Center the entire slide content perfectly between the arrows */
-  #shopify-section-{{ section.id }} .music-slide.active {
-    display: flex !important;
-    flex: 1; /* Takes up all available space between the arrows */
-    justify-content: center !important; /* Centers the image and text */
-    align-items: center !important;
-    gap: 3rem !important; /* Replaces the massive 150px gap from your global CSS to stop right-overflow */
-  }
-
-  /* 2. Stop horizontal shifting by giving the text section a fixed width */
+  /* 1. Stop horizontal shifting by giving the text section a fixed width */
   #shopify-section-{{ section.id }} .music-slide-info {
     width: 250px; 
     text-align: center;
-    transform: none !important; /* Kills the old translateX(-40px) hack from your global CSS */
-    margin: 0 !important;
   }
 
-  /* 3. Stop vertical shifting by giving the title a fixed height container */
+  /* 2. Stop vertical shifting by giving the title a fixed height container */
   #shopify-section-{{ section.id }} .album-title-wrapper {
     height: 70px; /* Locks the height whether it's 1 or 2 lines */
     display: flex;
@@ -66,7 +58,7 @@
     width: 100%;
   }
 
-  /* 4. Handle extremely long text by capping it to 2 lines with an ellipsis (...) */
+  /* 3. Handle extremely long text by capping it to 2 lines with an ellipsis (...) */
   #shopify-section-{{ section.id }} .album-title {
     margin: 0;
     display: -webkit-box;
@@ -75,14 +67,6 @@
     overflow: hidden;
     text-overflow: ellipsis;
     word-break: break-word;
-  }
-
-  /* 5. Keep Mobile Responsive Stacking */
-  @media (max-width: 900px) {
-    #shopify-section-{{ section.id }} .music-slide.active {
-      flex-direction: column !important;
-      gap: 1.5rem !important; /* Tighter gap for mobile */
-    }
   }
 </style>
 
