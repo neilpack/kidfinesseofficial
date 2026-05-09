@@ -141,7 +141,6 @@ h1 {
     flex-direction: column;
     justify-content: center;
     gap: 2rem;
-    transform: translateX(-40px);
 }
 
 .content-section div img {
@@ -192,6 +191,12 @@ h1 {
 .nav-arrow:hover {
     transform: scale(1.15); 
     opacity: 0.8;
+}
+
+.music-slide {
+    justify-content: center;
+    align-items: center;
+    flex: 1; /* This ensures the slide sits perfectly in the middle of the arrows */
 }
 
 /* ===============================
@@ -312,7 +317,8 @@ h1 {
     /* 5. MUSIC SECTION FIXES */
     main div.bar {
         flex-direction: column; /* Stack the album art and text */
-        gap: 1rem !important;   /* Overrides that massive 150px gap you had */
+        gap: 1rem !important;
+        align-items: center;
     }
 
     .content-section div section {
