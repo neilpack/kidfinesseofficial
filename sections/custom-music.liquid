@@ -35,13 +35,8 @@
   #shopify-section-{{ section.id }} .music-slide {
     display: none !important;
   }
-  
   #shopify-section-{{ section.id }} .music-slide.active {
-    display: flex !important; 
-    justify-content: center;
-    align-items: center;
-    width: 100%; /* Tells the slide to center perfectly between the arrows */
-    gap: 3rem !important; /* Overrides the massive 150px gap in your global CSS */
+    display: flex !important; /* Overrides display:none while keeping your .bar flex layout */
   }
 
   /* =========================================
@@ -52,7 +47,6 @@
   #shopify-section-{{ section.id }} .music-slide-info {
     width: 250px; 
     text-align: center;
-    transform: none !important; /* Overrides the translateX(-40px) from global CSS */
   }
 
   /* 2. Stop vertical shifting by giving the title a fixed height container */
@@ -101,6 +95,7 @@
                         <img src="{{ 'album.jpg' | asset_url }}" alt="Music Section Image">
                     {% endif %}
                     
+                    <!-- ADDED: wrapper classes to control dimensions -->
                     <section class="music-slide-info">
                         <div class="album-title-wrapper">
                             <h2 class="album-title">{{ block.settings.album_title | default: 'Album Title' }}</h2>
