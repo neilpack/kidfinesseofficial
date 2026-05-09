@@ -38,6 +38,36 @@
   #shopify-section-{{ section.id }} .music-slide.active {
     display: flex !important; /* Overrides display:none while keeping your .bar flex layout */
   }
+
+  /* =========================================
+     FIX FOR SHIFTING ARROWS & BUTTONS
+  ========================================= */
+  
+  /* 1. Stop horizontal shifting by giving the text section a fixed width */
+  #shopify-section-{{ section.id }} .music-slide-info {
+    width: 250px; 
+    text-align: center;
+  }
+
+  /* 2. Stop vertical shifting by giving the title a fixed height container */
+  #shopify-section-{{ section.id }} .album-title-wrapper {
+    height: 70px; /* Locks the height whether it's 1 or 2 lines */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+  }
+
+  /* 3. Handle extremely long text by capping it to 2 lines with an ellipsis (...) */
+  #shopify-section-{{ section.id }} .album-title {
+    margin: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* Limits text to 2 lines max */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-break: break-word;
+  }
 </style>
 
 <div class="content-section" id="music">
@@ -65,8 +95,11 @@
                         <img src="{{ 'album.jpg' | asset_url }}" alt="Music Section Image">
                     {% endif %}
                     
-                    <section>
-                        <h2>{{ block.settings.album_title | default: 'Album Title' }}</h2>
+                    <!-- ADDED: wrapper classes to control dimensions -->
+                    <section class="music-slide-info">
+                        <div class="album-title-wrapper">
+                            <h2 class="album-title">{{ block.settings.album_title | default: 'Album Title' }}</h2>
+                        </div>
                         <a href="{{ block.settings.stream_link | default: '#' }}" target="_blank" style="text-decoration: none;">
                             <h2 id="stream-button">Stream</h2>
                         </a>
@@ -76,8 +109,10 @@
         {% else %}
             <div class="bar music-slide active">
                 <img src="{{ 'album.jpg' | asset_url }}" alt="Music Section Image">
-                <section>
-                    <h2>Seth</h2>
+                <section class="music-slide-info">
+                    <div class="album-title-wrapper">
+                        <h2 class="album-title">Seth</h2>
+                    </div>
                     <a href="#" target="_blank" style="text-decoration: none;">
                         <h2 id="stream-button">Stream</h2>
                     </a>
