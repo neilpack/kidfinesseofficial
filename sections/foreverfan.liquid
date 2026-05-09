@@ -59,7 +59,7 @@
 
   .foreverfan-text-box-{{ section.id }} p {
     font-family: var(--font-body-family), sans-serif;
-    font-size: 32px;
+    font-size: 26px;
     line-height: 1.6;
     margin: 0;
     color: #ffffff !important;
@@ -84,6 +84,38 @@
     border-radius: 8px; 
     transform: scale({{ section.settings.embed_scale | divided_by: 100.0 }});
     transform-origin: top center;
+  }
+
+  /* =========================================
+     ANIMATION STYLES (Desktop Only)
+  ========================================= */
+  @media (min-width: 769px) {
+    .foreverfan-hidden-left-{{ section.id }} {
+      opacity: 0;
+      filter: blur(5px);
+      transform: translateX(-100px);
+      transition: all 1s ease-out;
+    }
+    
+    .foreverfan-hidden-right-{{ section.id }} {
+      opacity: 0;
+      filter: blur(5px);
+      transform: translateX(100px);
+      transition: all 1s ease-out;
+    }
+
+    .foreverfan-show-{{ section.id }} {
+      opacity: 1;
+      filter: blur(0);
+      transform: translateX(0);
+    }
+  }
+
+  @media (prefers-reduced-motion) {
+    .foreverfan-hidden-left-{{ section.id }},
+    .foreverfan-hidden-right-{{ section.id }} {
+      transition: none;
+    }
   }
 
   /* Mobile Styles: Hide the text boxes and reduce gaps */
@@ -113,13 +145,13 @@
         
         <!-- Text Box Left -->
         {% if section.settings.community_text != blank %}
-          <div class="foreverfan-text-box-{{ section.id }}">
+          <div class="foreverfan-text-box-{{ section.id }} foreverfan-hidden-left-{{ section.id }}">
             {{ section.settings.community_text }}
           </div>
         {% endif %}
 
         <!-- Embed Right -->
-        <div class="foreverfan-embed-container-{{ section.id }}">
+        <div class="foreverfan-embed-container-{{ section.id }} foreverfan-hidden-right-{{ section.id }}">
           <iframe src="{{ section.settings.embed_url }}" title="Forever Fan Connect" allowfullscreen loading="lazy"></iframe>
         </div>
       </div>
@@ -130,13 +162,13 @@
       <div class="foreverfan-embed-row-{{ section.id }}">
         
         <!-- Embed Left -->
-        <div class="foreverfan-embed-container-{{ section.id }}">
+        <div class="foreverfan-embed-container-{{ section.id }} foreverfan-hidden-left-{{ section.id }}">
           <iframe src="{{ section.settings.embed_url_2 }}" title="Forever Fan Presave" allowfullscreen loading="lazy"></iframe>
         </div>
 
         <!-- Text Box Right -->
         {% if section.settings.presave_text != blank %}
-          <div class="foreverfan-text-box-{{ section.id }}">
+          <div class="foreverfan-text-box-{{ section.id }} foreverfan-hidden-right-{{ section.id }}">
             {{ section.settings.presave_text }}
           </div>
         {% endif %}
@@ -146,6 +178,31 @@
 
   </div>
 </div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    // Only run the observer if the screen width is greater than mobile sizing
+    if (window.innerWidth > 768) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('foreverfan-show-{{ section.id }}');
+          } else {
+            // Re-hide element when scrolling out of view so it animates again
+            entry.target.classList.remove('foreverfan-show-{{ section.id }}');
+          }
+        });
+      }, { threshold: 0.1 }); // Triggers when 10% of the element is visible
+
+      // Grab both left-sliding and right-sliding elements
+      const hiddenLeft = document.querySelectorAll('.foreverfan-hidden-left-{{ section.id }}');
+      const hiddenRight = document.querySelectorAll('.foreverfan-hidden-right-{{ section.id }}');
+
+      hiddenLeft.forEach((el) => observer.observe(el));
+      hiddenRight.forEach((el) => observer.observe(el));
+    }
+  });
+</script>
 
 {% schema %}
 {
