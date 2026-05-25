@@ -17,6 +17,13 @@
         "mobile_image": "shopify://shop_images/SMALLER_DIMENSIONS_2.jpg"
       }
     },
+    "youtube_embed_qrHWEN": {
+      "type": "youtube-embed",
+      "name": "YouTube Embed",
+      "settings": {
+        "youtube_iframe": "<iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/FRmLWCpxJI0?si=7vrn_uxu4OMgIMo_\" title=\"YouTube video player\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" allowfullscreen></iframe>"
+      }
+    },
     "custom_music_gQJGgC": {
       "type": "custom-music",
       "custom_css": [
@@ -72,14 +79,6 @@
         "iframe_height": 1000,
         "margin_top": 40,
         "margin_bottom": 40
-      }
-    },
-    "youtube_embed_qrHWEN": {
-      "type": "youtube-embed",
-      "name": "YouTube Embed",
-      "settings": {
-        "title": "LATEST VIDEO",
-        "youtube_iframe": ""
       }
     }
   },
