@@ -98,8 +98,14 @@
 
   /* Mobile Stacking Rules */
   @media (max-width: 768px) {
+    /* Hides the heading on mobile while keeping the section anchor link functional */
+    .join-community-heading-{{ section.id }} {
+      display: none;
+    }
+
     .jc-animated-titles-{{ section.id }} {
       flex-direction: column;
+      font-size: 18px;
       gap: 20px; /* Spacing between the stacked h3s on mobile */
       margin-top: 60px; /* Optional: shrink the huge margins slightly on mobile so it doesn't look empty */
       margin-bottom: 60px;
