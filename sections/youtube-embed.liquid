@@ -1,13 +1,4 @@
 <style>
-  /* Section title styling to match the rest of your theme */
-  #shopify-section-{{ section.id }} h1 {
-    font-family: var(--font-heading-family) !important;
-    text-decoration: none !important;
-    color: #ffffff !important;
-    text-align: center;
-    margin: 0 0 20px 0;
-  }
-
   /* Main wrapper to keep everything centered and constrained */
   #shopify-section-{{ section.id }} .youtube-wrapper {
     width: 100%;
@@ -38,10 +29,6 @@
 
 <div class="content-section" id="youtube-embed">
   <div class="youtube-wrapper">
-    
-    {% if section.settings.title != blank %}
-      <h1>{{ section.settings.title }}</h1>
-    {% endif %}
 
     <div class="video-container">
       {% if section.settings.youtube_iframe != blank %}
@@ -58,12 +45,6 @@
 {
   "name": "YouTube Embed",
   "settings": [
-    {
-      "type": "text",
-      "id": "title",
-      "label": "Section Title",
-      "default": "LATEST VIDEO"
-    },
     {
       "type": "textarea",
       "id": "youtube_iframe",
