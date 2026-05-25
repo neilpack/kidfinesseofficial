@@ -34,6 +34,11 @@
 {% endif %}
 
 @media screen and (max-width: 749px){
+/* --- Added margin-top for the topmost part on mobile --- */
+.product-info {
+  margin-top: 60px; 
+}
+
 .image-navigation {
   display: flex;
   justify-content: center;
@@ -97,7 +102,7 @@
 }
   .product__item-img, .product__item-video {
     max-height: 100%;
-    max-width: 100%;
+    max-width: 400px;
     position: absolute;
     top: 50%;
     left: 50%;

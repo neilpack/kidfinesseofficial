@@ -77,12 +77,26 @@
         <h1>{{ section.settings.section_title | default: 'MUSIC' }}</h1>
     </div>
 
-    <div style="width: 100%; max-width: 800px; display: flex; justify-content: center;">
-        {% if section.settings.spotify_embed != blank %}
-            {{ section.settings.spotify_embed }}
-        {% else %}
-            <div class="placeholder-box" style="width: 100%; height: 352px; background-color: #111; color: #ffffff !important;">SPOTIFY WEB PLAYER</div>
-        {% endif %}
+    <div style="width: 100%; max-width: 800px; display: flex; flex-direction: column; align-items: center; gap: 24px; margin: 0 auto; padding-bottom: 20px;">
+        
+        <!-- TOP DYNAMIC SPOTIFY EMBED -->
+        <div style="width: 100%;">
+            {% if section.settings.spotify_embed_top != blank %}
+                {{ section.settings.spotify_embed_top }}
+            {% else %}
+                <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/playlist/1xO23EyB5m1MvUAS2uyYYO?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+            {% endif %}
+        </div>
+
+        <!-- BOTTOM DYNAMIC SPOTIFY EMBED -->
+        <div style="width: 100%;">
+            {% if section.settings.spotify_embed != blank %}
+                {{ section.settings.spotify_embed }}
+            {% else %}
+                <div class="placeholder-box" style="width: 100%; height: 352px; background-color: #111; color: #ffffff !important; display: flex; justify-content: center; align-items: center; border-radius: 12px;">SPOTIFY WEB PLAYER</div>
+            {% endif %}
+        </div>
+        
     </div>
     
     <div class="carousel-container" id="music-carousel-{{ section.id }}">
@@ -179,9 +193,15 @@ document.addEventListener('DOMContentLoaded', () => {
     },
     {
       "type": "textarea",
+      "id": "spotify_embed_top",
+      "label": "Top Spotify Embed Code (iframe)",
+      "info": "Paste the iframe code directly from Spotify here for the top playlist."
+    },
+    {
+      "type": "textarea",
       "id": "spotify_embed",
-      "label": "Spotify Embed Code (iframe)",
-      "info": "Paste the iframe code directly from Spotify here."
+      "label": "Bottom Spotify Embed Code (iframe)",
+      "info": "Paste the iframe code directly from Spotify here for the bottom playlist."
     }
   ],
   "blocks": [
