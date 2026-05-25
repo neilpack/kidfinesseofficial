@@ -42,22 +42,6 @@
     object-position: center !important;
   }
 
-  /* Stream/Merch button specific styles */
-  #shopify-section-{{ section.id }} #merch-button {
-    border: 1px solid #ffffff;
-    padding: 0.5rem 1rem;
-    border-radius: 4px;
-    font-size: 20px;
-    display: inline-block;
-    transition: all 0.3s ease;
-  }
-  
-  #shopify-section-{{ section.id }} #merch-button:hover {
-    cursor: pointer;
-    background-color: #ffffff;
-    color: #000000 !important; 
-  }
-
   /* Mobile adjustments so the gap isn't too huge on phones */
   @media (max-width: 900px) {
     #shopify-section-{{ section.id }} .store-grid {
@@ -106,10 +90,6 @@
             <div class="placeholder-box" style="display: flex; align-items: center; justify-content: center; color: #555;">MERCH 3</div>
         {% endif %}
     </div>
-
-    <a href="{{ section.settings.button_link | default: '#store' }}" style="text-decoration: none; color: inherit;">
-        <h2 id="merch-button">{{ section.settings.button_text | default: 'SEE ALL MERCH' }}</h2>
-    </a>
 </div>
 
 {% schema %}
@@ -121,17 +101,6 @@
       "id": "section_title",
       "label": "Section Title",
       "default": "STORE"
-    },
-    {
-      "type": "url",
-      "id": "button_link",
-      "label": "Button Link (See All Merch)"
-    },
-    {
-      "type": "text",
-      "id": "button_text",
-      "label": "Button Text",
-      "default": "SEE ALL MERCH"
     }
   ],
   "blocks": [
