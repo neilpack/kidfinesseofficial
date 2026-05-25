@@ -9,9 +9,31 @@
   /* Force white text for the rest of the elements in this section */
   #shopify-section-{{ section.id }} h2,
   #shopify-section-{{ section.id }} p,
-  #shopify-section-{{ section.id }} a {
+  #shopify-section-{{ section.id }} a:not(.presave-button) {
     color: #ffffff !important;
     font-family: var(--font-heading-family) !important;
+  }
+
+  /* ForeverFan Button Styles */
+  #shopify-section-{{ section.id }} .presave-button {
+    display: inline-block;
+    padding: 12px 32px;
+    background-color: transparent;
+    color: #ffffff !important;
+    border: 1px solid #ffffff;
+    border-radius: 4px;
+    text-decoration: none !important;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-size: 14px;
+    font-family: var(--font-heading-family) !important;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  /* Hover State for Button */
+  #shopify-section-{{ section.id }} .presave-button:hover {
+    background-color: #ffffff;
+    color: #000000 !important;
   }
 </style>
 
@@ -38,6 +60,13 @@
             {% endif %}
         </div>
         
+        {%- comment -%} ForeverFan Link Button {%- endcomment -%}
+        {% if section.settings.button_text != blank %}
+            <a href="{{ section.settings.button_link | default: 'https://fvr.fan/kid-finesse/presaveforever' }}" target="_blank" class="presave-button">
+                {{ section.settings.button_text }}
+            </a>
+        {% endif %}
+        
     </div>
 </div>
 
@@ -62,6 +91,18 @@
       "id": "spotify_embed",
       "label": "Bottom Spotify Embed Code (iframe)",
       "info": "Paste the iframe code directly from Spotify here for the bottom playlist."
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "PRE-SAVE FOREVER"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link",
+      "info": "Leave blank to use the default presave link."
     }
   ],
   "presets": [
