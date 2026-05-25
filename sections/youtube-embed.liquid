@@ -1,0 +1,81 @@
+<style>
+  /* Section title styling to match the rest of your theme */
+  #shopify-section-{{ section.id }} h1 {
+    font-family: var(--font-heading-family) !important;
+    text-decoration: none !important;
+    color: #ffffff !important;
+    text-align: center;
+    margin: 0 0 20px 0;
+  }
+
+  /* Main wrapper to keep everything centered and constrained */
+  #shopify-section-{{ section.id }} .youtube-wrapper {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 1rem 20px 1rem;
+  }
+
+  /* Responsive 16:9 video container */
+  #shopify-section-{{ section.id }} .video-container {
+    position: relative;
+    padding-bottom: 56.25%; /* Forces the 16:9 aspect ratio */
+    height: 0;
+    overflow: hidden;
+    border-radius: 12px; /* Matches your Spotify embed border radius */
+  }
+
+  /* Forces the iframe to perfectly fill the responsive container */
+  #shopify-section-{{ section.id }} .video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100% !important;
+    height: 100% !important;
+    border: 0;
+  }
+</style>
+
+<div class="content-section" id="youtube-embed">
+  <div class="youtube-wrapper">
+    
+    {% if section.settings.title != blank %}
+      <h1>{{ section.settings.title }}</h1>
+    {% endif %}
+
+    <div class="video-container">
+      {% if section.settings.youtube_iframe != blank %}
+        {{ section.settings.youtube_iframe }}
+      {% else %}
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/FRmLWCpxJI0?si=0zIc_hRQITsWHla_&amp;start=57" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+      {% endif %}
+    </div>
+
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "YouTube Embed",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "LATEST VIDEO"
+    },
+    {
+      "type": "textarea",
+      "id": "youtube_iframe",
+      "label": "YouTube Embed Code (iframe)",
+      "info": "Paste a new iframe code directly from YouTube here to override the default video."
+    }
+  ],
+  "presets": [
+    {
+      "name": "YouTube Embed",
+      "category": "Video"
+    }
+  ]
+}
+{% endschema %}
