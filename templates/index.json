@@ -73,10 +73,19 @@
         "margin_top": 40,
         "margin_bottom": 40
       }
+    },
+    "youtube_embed_qrHWEN": {
+      "type": "youtube-embed",
+      "name": "YouTube Embed",
+      "settings": {
+        "title": "LATEST VIDEO",
+        "youtube_iframe": ""
+      }
     }
   },
   "order": [
     "custom_hero_mFhBUm",
+    "youtube_embed_qrHWEN",
     "custom_music_gQJGgC",
     "apple_music_JHp6DF",
     "custom_store_rPDQkX",
