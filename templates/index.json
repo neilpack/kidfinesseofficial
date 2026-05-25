@@ -33,20 +33,9 @@
       "settings": {
         "section_title": "MUSIC",
         "spotify_embed_top": "<iframe data-testid=\"embed-iframe\" style=\"border-radius:12px\" src=\"https://open.spotify.com/embed/playlist/1xO23EyB5m1MvUAS2uyYYO?utm_source=generator&theme=0\" width=\"100%\" height=\"400\" frameborder=\"0\" allowfullscreen=\"\" allow=\"autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture\" loading=\"lazy\"></iframe>",
-        "spotify_embed": "<iframe data-testid=\"embed-iframe\" style=\"border-radius:12px\" src=\"https://open.spotify.com/embed/playlist/37i9dQZF1DZ06evO1V6H8D?utm_source=generator\" width=\"100%\" height=\"400\" frameborder=\"0\" allowfullscreen=\"\" allow=\"autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture\" loading=\"lazy\"></iframe>"
-      }
-    },
-    "apple_music_JHp6DF": {
-      "type": "apple-music",
-      "disabled": true,
-      "name": "Apple Music Embed",
-      "settings": {
-        "heading": "",
-        "description": "",
-        "heading_size": "m",
-        "embed_code": "<iframe allow=\"autoplay *; encrypted-media *; fullscreen *; clipboard-write\" frameborder=\"0\" height=\"650\" style=\"width:100%;max-width:860px;overflow:hidden;border-radius:10px;\" sandbox=\"allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation\" src=\"https://embed.music.apple.com/us/album/my-summertime-roster/1846735624\"></iframe>",
-        "margin_top": 20,
-        "margin_bottom": 20
+        "spotify_embed": "<iframe data-testid=\"embed-iframe\" style=\"border-radius:12px\" src=\"https://open.spotify.com/embed/playlist/37i9dQZF1DZ06evO1V6H8D?utm_source=generator\" width=\"100%\" height=\"400\" frameborder=\"0\" allowfullscreen=\"\" allow=\"autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture\" loading=\"lazy\"></iframe>",
+        "button_text": "PRE-SAVE MUSIC",
+        "button_link": ""
       }
     },
     "custom_store_rPDQkX": {
@@ -67,8 +56,23 @@
         "section_title": "STORE"
       }
     },
+    "join_community_GJiWfg": {
+      "type": "join-community",
+      "name": "Join Community",
+      "settings": {
+        "heading": "STAY CONNECTED",
+        "title_1": "EXCLUSIVE CONTENT",
+        "title_2": "DISCOUNTS",
+        "title_3": "ALL ONE PLACE",
+        "button_text": "JOIN THE COMMUNITY",
+        "button_link": "https://fvr.fan/kid-finesse/kidfinessefamily",
+        "margin_top": 40,
+        "margin_bottom": 40
+      }
+    },
     "foreverfan_jefAMh": {
       "type": "foreverfan",
+      "disabled": true,
       "name": "Forever Fan Embed",
       "settings": {
         "heading": "STAY CONNECTED",
@@ -86,8 +90,8 @@
     "custom_hero_mFhBUm",
     "youtube_embed_qrHWEN",
     "custom_music_gQJGgC",
-    "apple_music_JHp6DF",
     "custom_store_rPDQkX",
+    "join_community_GJiWfg",
     "foreverfan_jefAMh"
   ]
 }
