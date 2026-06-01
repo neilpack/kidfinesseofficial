@@ -17,13 +17,6 @@
         "mobile_image": "shopify://shop_images/SMALLER_DIMENSIONS_2.jpg"
       }
     },
-    "youtube_embed_qrHWEN": {
-      "type": "youtube-embed",
-      "name": "YouTube Embed",
-      "settings": {
-        "youtube_iframe": "<iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/FRmLWCpxJI0?si=7vrn_uxu4OMgIMo_\" title=\"YouTube video player\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" allowfullscreen></iframe>"
-      }
-    },
     "custom_music_gQJGgC": {
       "type": "custom-music",
       "custom_css": [
@@ -54,6 +47,13 @@
       "name": "Custom Store",
       "settings": {
         "section_title": "STORE"
+      }
+    },
+    "youtube_embed_qrHWEN": {
+      "type": "youtube-embed",
+      "name": "YouTube Embed",
+      "settings": {
+        "youtube_iframe": "<iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/FRmLWCpxJI0?si=7vrn_uxu4OMgIMo_\" title=\"YouTube video player\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" allowfullscreen></iframe>"
       }
     },
     "join_community_GJiWfg": {
@@ -88,9 +88,9 @@
   },
   "order": [
     "custom_hero_mFhBUm",
-    "youtube_embed_qrHWEN",
     "custom_music_gQJGgC",
     "custom_store_rPDQkX",
+    "youtube_embed_qrHWEN",
     "join_community_GJiWfg",
     "foreverfan_jefAMh"
   ]
